@@ -7,3 +7,76 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
+model User {
+    id Int @id @default(autoincrement())
+    username String @unique
+    password String
+    isAdmin Boolean
+}
+
+model Trip {
+    id Int @id @default(autoincrement())
+    startDate DateTime
+    endDate DateTime
+    location String //campgrounds
+    current Boolean
+    gasTotal Int
+    gasSingle Int
+    fireNight Int
+    parking Int
+}
+
+model Budget {
+    id Int @id @default(autoincrement())
+    trip String //trip
+    name String
+    total Int
+    individual Float
+}
+
+model Equipment {
+    id Int @id @default(autoincrement())
+    name String
+    packed Boolean
+}
+
+model Meals {
+    id Int @id @default(autoincrement())
+    day Int
+    course String
+    name String
+    ingredients String //food
+}
+
+model Food {
+    id Int @id @default(autoincrement())
+    name String
+    purchased Boolean
+    cooler Boolean
+    meal String //meals
+    assignee String //user
+}
+
+model Clothing {
+    id Int @id @default(autoincrement())
+    name String
+    packed Boolean
+    user String //user
+}
+
+model Campgrounds {
+    id Int @id @default(autoincrement())
+    park String @unique
+    price Int
+    firewood Int
+    distance Float
+    curvy String
+    reserve Int
+    website String
+    generalArea String
+}
+
+model Activities {
+    id Int @id @default(autoincrement())
+    name String @unique
+}
