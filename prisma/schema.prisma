@@ -12,6 +12,8 @@ model User {
     username String @unique
     password String
     isAdmin Boolean
+    foods Food[]
+    clothing Clothing[]
 }
 
 model Trip {
@@ -25,20 +27,18 @@ model Trip {
     gasSingle Int
     fireNight Int
     parking Int
+    budgets Budget[]
+    meals Meals[]
+    activities Activities[]
 }
 
 model Budget {
     id Int @id @default(autoincrement())
-    trip String //trip
     name String
+    trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+    tripId Int
     total Int
     individual Float
-}
-
-model Equipment {
-    id Int @id @default(autoincrement())
-    name String
-    packed Boolean
 }
 
 model Meals {
@@ -46,7 +46,8 @@ model Meals {
     day Int
     course String
     name String
-    ingredients String //food
+    foods Food[]
+    trips Trip[]
 }
 
 model Food {
@@ -54,15 +55,16 @@ model Food {
     name String
     purchased Boolean
     cooler Boolean
-    meal String //meals
-    assignee String //user
+    meals Meals[]
+    user User @relation(fields: [userId], references: [id], onUpdate: Cascade)
+    userId Int //user
 }
 
 model Clothing {
     id Int @id @default(autoincrement())
     name String
     packed Boolean
-    user String //user
+    users User[]
 }
 
 model Campgrounds {
@@ -81,4 +83,11 @@ model Campgrounds {
 model Activities {
     id Int @id @default(autoincrement())
     name String @unique
+    trips Trip[]
+}
+
+model Equipment {
+    id Int @id @default(autoincrement())
+    name String
+    packed Boolean
 }
