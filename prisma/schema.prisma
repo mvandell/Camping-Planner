@@ -21,7 +21,7 @@ model Trip {
     startDate DateTime
     endDate DateTime
     campground Campgrounds @relation(fields: [campgroundId], references: [id], onUpdate: Cascade)
-    campgroundId Int //campgrounds
+    campgroundId Int
     current Boolean
     gasTotal Int
     gasSingle Int
@@ -57,7 +57,7 @@ model Food {
     cooler Boolean
     meals Meals[]
     user User @relation(fields: [userId], references: [id], onUpdate: Cascade)
-    userId Int //user
+    userId Int
 }
 
 model Clothing {
