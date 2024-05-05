@@ -18,7 +18,8 @@ model Trip {
     id Int @id @default(autoincrement())
     startDate DateTime
     endDate DateTime
-    location String //campgrounds
+    campground Campgrounds @relation(fields: [campgroundId], references: [id], onUpdate: Cascade)
+    campgroundId Int //campgrounds
     current Boolean
     gasTotal Int
     gasSingle Int
@@ -71,9 +72,10 @@ model Campgrounds {
     firewood Int
     distance Float
     curvy String
-    reserve Int
+    reserveFrame Int
     website String
     generalArea String
+    trips Trip[]
 }
 
 model Activities {
