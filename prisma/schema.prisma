@@ -90,4 +90,5 @@ model Equipment {
     id Int @id @default(autoincrement())
     name String
     packed Boolean
+    needed Boolean
 }
