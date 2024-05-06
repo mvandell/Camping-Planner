@@ -11,7 +11,7 @@ model User {
     id Int @id @default(autoincrement())
     username String @unique
     password String
-    isAdmin Boolean
+    isAdmin Boolean @default(false)
     foods Food[]
     clothing Clothing[]
 }
@@ -22,7 +22,7 @@ model Trip {
     endDate DateTime
     campground Campgrounds @relation(fields: [campgroundId], references: [id], onUpdate: Cascade)
     campgroundId Int
-    current Boolean
+    current Boolean @default(true)
     gasTotal Int
     gasSingle Int
     fireNight Int
@@ -53,8 +53,8 @@ model Meals {
 model Food {
     id Int @id @default(autoincrement())
     name String
-    purchased Boolean
-    cooler Boolean
+    purchased Boolean @default(false)
+    cooler Boolean @default(false)
     meals Meals[]
     user User @relation(fields: [userId], references: [id], onUpdate: Cascade)
     userId Int
@@ -63,7 +63,7 @@ model Food {
 model Clothing {
     id Int @id @default(autoincrement())
     name String
-    packed Boolean
+    packed Boolean @default(false)
     users User[]
 }
 
@@ -89,6 +89,6 @@ model Activities {
 model Equipment {
     id Int @id @default(autoincrement())
     name String
-    packed Boolean
-    needed Boolean
+    packed Boolean @default(false)
+    needed Boolean @default(true)
 }
