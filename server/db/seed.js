@@ -26,8 +26,29 @@ async function seed() {
                 }
             })
         }
+        //<--------------------------USERS------------------------------->
+        const marisa = await prisma.user.create({
+            data: {
+                username: 'saphira',
+                password: bcrypt.hashSync("Le@fe0n", SALT_COUNT),
+                isAdmin: true
+            }
+        })
+        const ana = await prisma.user.create({
+            data: {
+                username: 'maya',
+                password: bcrypt.hashSync("Um6reon!", SALT_COUNT)
+            }
+        })
+        const aloisa = await prisma.user.create({
+            data: {
+                username: 'aloiivera',
+                password: bcrypt.hashSync("Gl@ce0n", SALT_COUNT)
+            }
+        })
 
 
+        
         console.log("Database is seeded")
     } catch (error) {
         console.error(error)
