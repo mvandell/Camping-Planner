@@ -64,7 +64,8 @@ model Clothing {
     id Int @id @default(autoincrement())
     name String
     packed Boolean @default(false)
-    users User[]
+    user User @relation(fields: [userId], references: [id], onUpdate: Cascade)
+    userId Int
 }
 
 model Campgrounds {
