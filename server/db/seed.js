@@ -31,7 +31,7 @@ async function seed() {
             data: {
                 username: 'saphira',
                 password: bcrypt.hashSync("Le@fe0n", SALT_COUNT),
-                isAdmin: true
+                isAdmin: true,
             }
         })
         const ana = await prisma.user.create({
@@ -46,6 +46,19 @@ async function seed() {
                 password: bcrypt.hashSync("Gl@ce0n", SALT_COUNT)
             }
         })
+        //---------------------------CLOTHING---------------------------->
+        const allUsers = ["saphira", "maya", "aloiivera"];
+        for (let i = 0; i < allUsers.length; i++) {
+            for (let j = 0; j < equipments.clothing.length; j++) {
+                await prisma.clothing.create({
+                    data: {
+                        name: equipments.clothing[j],
+                        user: {connect: {username: allUsers[i]}}
+                    },
+                    include: {user: true}
+                })
+            }
+        }
         //-------------------------CAMPGROUNDS--------------------------->
         const lassen = await prisma.campgrounds.create({
             data: {
@@ -135,7 +148,7 @@ async function seed() {
             data: {
                 park: "Silver Lake East",
                 price: 28,
-                firewood: null,
+                firewood: 0,
                 distance: 4,
                 curvy: "at end",
                 reserveFrame: 5,
@@ -155,6 +168,12 @@ async function seed() {
                 generalArea: "Central Sierras"
             }
         })
+        //---------------------------CLOTHING (inside user?)---------------------------->
+        //--------------------------ACTIVITIES--------------------------->
+        //-----------------------------TRIP------------------------------>
+        //----------------------------BUDGET (inside trip?)----------------------------->
+        //-----------------------------MEALS----------------------------->
+        //-----------------------------FOOD------------------------------>
 
 
         console.log("Database is seeded")
