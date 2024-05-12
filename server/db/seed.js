@@ -6,15 +6,15 @@ const equipments = require("./equipment.js");
 
 async function seed() {
     console.log("Seeding the database");
-    await prisma.equipment.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.trip.deleteMany();
-    await prisma.budget.deleteMany();
-    await prisma.meals.deleteMany();
     await prisma.food.deleteMany();
-    await prisma.clothing.deleteMany();
-    await prisma.campgrounds.deleteMany();
+    await prisma.meals.deleteMany();
+    await prisma.budget.deleteMany();
+    await prisma.trip.deleteMany();
     await prisma.activities.deleteMany();
+    await prisma.campgrounds.deleteMany();
+    await prisma.clothing.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.equipment.deleteMany();
 
     try {
         //<------------------------EQUIPMENT----------------------------->
@@ -168,9 +168,111 @@ async function seed() {
                 generalArea: "Central Sierras"
             }
         })
-        //---------------------------CLOTHING (inside user?)---------------------------->
+        const koa = await prisma.campgrounds.create({
+            data: {
+                park: "Shingletown KOA",
+                price: 38,
+                firewood: 7,
+                distance: 4.5,
+                curvy: "no",
+                reserveFrame: 6,
+                website: "https://koa.com/campgrounds/mt-lassen/",
+                generalArea: "Northern Sierras"
+            }
+        })
         //--------------------------ACTIVITIES--------------------------->
+        const kayak = await prisma.activities.create({
+            data: {
+                name: "kayaking"
+            }
+        })
+        const hike = await prisma.activities.create({
+            data: {
+                name: "hiking"
+            }
+        })
+        const cave = await prisma.activities.create({
+            data: {
+                name: "caves"
+            }
+        })
+        const swim = await prisma.activities.create({
+            data: {
+                name: "swimming"
+            }
+        })
+        const sulphur = await prisma.activities.create({
+            data: {
+                name: "Sulphur Works"
+            }
+        })
+        const canoe = await prisma.activities.create({
+            data: {
+                name: "canoeing"
+            }
+        })
         //-----------------------------TRIP------------------------------>
+        const y2022 = await prisma.trip.create({
+            data: {
+                startDate: new Date("June 10, 2022"),
+                endDate: new Date("June 12, 2022"),
+                campground: {connect: {id: lassen.id}},
+                current: false,
+                gasTotal: 180,
+                gasSingle: 60,
+                fireNight: 45,
+                parking: 30,
+                activities: {connect: {
+                    id: kayak.id,
+                    id: hike.id,
+                    id: swim.id
+                }}
+            }
+        })
+        const y2023 = await prisma.trip.create({
+            data: {
+                startDate: new Date("June 9, 2023"),
+                endDate: new Date("June 12, 2023"),
+                campground: {connect: {id: koa.id}},
+                current: false,
+                gasTotal: 180,
+                gasSingle: 60,
+                fireNight: 16,
+                parking: 0,
+                budgets: {create: {
+                    name: "kayaking",
+                    total: 38,
+                    individual: 12.67
+                }},
+                activities: {connect: {
+                    id: kayak.id,
+                    id: hike.id,
+                    id: swim.id
+                }}
+            }
+        })
+        const y2024 = await prisma.trip.create({
+            data: {
+                startDate: new Date("June 28, 2024"),
+                endDate: new Date("July 1, 2024"),
+                campground: {connect: {id: castleCrags.id}},
+                gasTotal: 180,
+                gasSingle: 60,
+                fireNight: 24,
+                parking: 0,
+                budgets: {create: {
+                    name: "Shasta Caverns",
+                    total: 131,
+                    individual: 43.68
+                }},
+                activities: {connect: {
+                    id: kayak.id,
+                    id: cave.id,
+                    id: canoe.id,
+                    id: swim.id
+                }}
+            }
+        })
         //----------------------------BUDGET (inside trip?)----------------------------->
         //-----------------------------MEALS----------------------------->
         //-----------------------------FOOD------------------------------>
