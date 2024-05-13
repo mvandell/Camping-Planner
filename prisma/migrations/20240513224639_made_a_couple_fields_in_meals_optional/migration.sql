@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Meals" ALTER COLUMN "day" DROP NOT NULL,
+ALTER COLUMN "name" DROP NOT NULL;

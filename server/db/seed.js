@@ -212,6 +212,7 @@ async function seed() {
             }
         })
         //-----------------------------TRIP------------------------------>
+        //----------------------------BUDGET (inside trip)----------------------------->
         const y2022 = await prisma.trip.create({
             data: {
                 startDate: new Date("June 10, 2022"),
@@ -273,8 +274,12 @@ async function seed() {
                 }}
             }
         })
-        //----------------------------BUDGET (inside trip?)----------------------------->
         //-----------------------------MEALS----------------------------->
+        const breakfast = await prisma.meals.create({
+            data: {
+                course: breakfast
+            }
+        })
         //-----------------------------FOOD------------------------------>
 
 
