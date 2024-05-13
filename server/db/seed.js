@@ -211,8 +211,7 @@ async function seed() {
                 name: "canoeing"
             }
         })
-        //-----------------------------TRIP------------------------------>
-        //----------------------------BUDGET (inside trip)----------------------------->
+        //-------------------------TRIP/BUDGET--------------------------->
         const y2022 = await prisma.trip.create({
             data: {
                 startDate: new Date("June 10, 2022"),
@@ -228,7 +227,8 @@ async function seed() {
                     id: hike.id,
                     id: swim.id
                 }}
-            }
+            },
+            include: {campground: true, activities: true}
         })
         const y2023 = await prisma.trip.create({
             data: {
@@ -250,7 +250,8 @@ async function seed() {
                     id: hike.id,
                     id: swim.id
                 }}
-            }
+            },
+            include: {campground: true, activities: true}
         })
         const y2024 = await prisma.trip.create({
             data: {
@@ -272,16 +273,137 @@ async function seed() {
                     id: canoe.id,
                     id: swim.id
                 }}
-            }
+            },
+            include: {campground: true, activities: true}
         })
         //-----------------------------MEALS----------------------------->
         const breakfast = await prisma.meals.create({
             data: {
-                course: breakfast
+                course: "breakfast"
+            }
+        })
+        const nachos = await prisma.meals.create({
+            data: {
+                day: 2,
+                course: "dinner",
+                name: "Campfire Nachos"
             }
         })
         //-----------------------------FOOD------------------------------>
-
+        const sausage = await prisma.food.create({
+            data: {
+                name: "chicken apple sausage",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: breakfast.id}},
+                user: {connect: {id: aloisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const tomatoes = await prisma.food.create({
+            data: {
+                name: "tomatoes",
+                purchased: true,
+                meals: {connect: {id: breakfast.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const fruit = await prisma.food.create({
+            data: {
+                name: "fruit",
+                purchased: true,
+                meals: {connect: {id: breakfast.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const oil = await prisma.food.create({
+            data: {
+                name: "veggie oil",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const chips = await prisma.food.create({
+            data: {
+                name: "tortilla chips",
+                purchased: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const salsa = await prisma.food.create({
+            data: {
+                name: "hot sauce",
+                purchased: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const cheese = await prisma.food.create({
+            data: {
+                name: "mexican cheese blend",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: ana.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const beans = await prisma.food.create({
+            data: {
+                name: "black beans",
+                purchased: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const avocado = await prisma.food.create({
+            data: {
+                name: "avocado",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: aloisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const scallions = await prisma.food.create({
+            data: {
+                name: "green onions",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const cilantro = await prisma.food.create({
+            data: {
+                name: "cilantro",
+                purchased: true,
+                cooler: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: ana.id}}
+            },
+            include: {meals: true, user: true}
+        })
+        const lime = await prisma.food.create({
+            data: {
+                name: "lime",
+                purchased: true,
+                meals: {connect: {id: nachos.id}},
+                user: {connect: {id: marisa.id}}
+            },
+            include: {meals: true, user: true}
+        })
 
         console.log("Database is seeded")
     } catch (error) {
