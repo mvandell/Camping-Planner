@@ -28,8 +28,7 @@ model Trip {
     fireNight Int
     parking Int
     budgets Budget[]
-    meals Meals[]
-    activities Activities[]
+    meals Meals[] 
 }
 
 model Budget {
@@ -79,12 +78,13 @@ model Campgrounds {
     website String
     generalArea String
     trips Trip[]
+    activities Activities[]
 }
 
 model Activities {
     id Int @id @default(autoincrement())
     name String @unique
-    trips Trip[]
+    campgrounds Campgrounds[]
 }
 
 model Equipment {

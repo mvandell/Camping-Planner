@@ -59,127 +59,6 @@ async function seed() {
                 })
             }
         }
-        //-------------------------CAMPGROUNDS--------------------------->
-        const lassen = await prisma.campgrounds.create({
-            data: {
-                park: "Lassen Volcanic NP",
-                price: 26,
-                firewood: 15,
-                distance: 5,
-                curvy: "no",
-                reserveFrame: 6,
-                website: "https://www.nps.gov/lavo/planyourvisit/manzanita-lake-campground.htm",
-                generalArea: "Northern Sierras"
-            }
-        })
-        const sequoiaKingsCanyon = await prisma.campgrounds.create({
-            data: {
-                park: "Sequoia & Kings Canyon NP",
-                price: 32,
-                firewood: 7,
-                distance: 4.5,
-                curvy: "at end",
-                reserveFrame: 4,
-                website: "https://www.nps.gov/seki/planyourvisit/campgrounds.htm",
-                generalArea: "Southern Sierras"
-            }
-        })
-        const calaveras = await prisma.campgrounds.create({
-            data: {
-                park: "Calaveras Big Trees SP",
-                price: 35,
-                firewood: 9,
-                distance: 3,
-                curvy: "not bad",
-                reserveFrame: 6,
-                website: "https://www.parks.ca.gov/?page_id=551",
-                generalArea: "Central Sierras"
-            }
-        })
-        const castleCrags = await prisma.campgrounds.create({
-            data: {
-                park: "Castle Crags SP",
-                price: 25,
-                firewood: 8,
-                distance: 5,
-                curvy: "not bad",
-                reserveFrame: 6,
-                website: "https://www.parks.ca.gov/?page_id=454",
-                generalArea: "Northern Coast Range"
-            }
-        })
-        const plumasEureka = await prisma.campgrounds.create({
-            data: {
-                park: "Plumas-Eureka SP",
-                price: 35,
-                firewood: 7,
-                distance: 4.5,
-                curvy: "little",
-                reserveFrame: 6,
-                website: "https://www.parks.ca.gov/?page_id=507",
-                generalArea: "Central Sierras"
-            }
-        })
-        const sugarPine = await prisma.campgrounds.create({
-            data: {
-                park: "Sugar Pine Point SP",
-                price: 35,
-                firewood: 9,
-                distance: 4,
-                curvy: "no",
-                reserveFrame: 6,
-                website: "https://www.parks.ca.gov/?page_id=510",
-                generalArea: "Tahoe"
-            }
-        })
-        const fallenLeafLake = await prisma.campgrounds.create({
-            data: {
-                park: "Fallen Leaf Campground",
-                price: 44,
-                firewood: 8,
-                distance: 4,
-                curvy: "at end",
-                reserveFrame: 6,
-                website: "https://www.fs.usda.gov/recarea/ltbmu/recarea/?recid=11781",
-                generalArea: "Tahoe"
-            }
-        })
-        const silverLake = await prisma.campgrounds.create({
-            data: {
-                park: "Silver Lake East",
-                price: 28,
-                firewood: 0,
-                distance: 4,
-                curvy: "at end",
-                reserveFrame: 5,
-                website: "https://www.recreation.gov/camping/campgrounds/232263?tab=info",
-                generalArea: "Central Sierras"
-            }
-        })
-        const yosemite = await prisma.campgrounds.create({
-            data: {
-                park: "Yosemite NP",
-                price: 36,
-                firewood: 13,
-                distance: 4.5,
-                curvy: "old priest grade, or 1-hour detour",
-                reserveFrame: 5,
-                website: "https://www.nps.gov/yose/planyourvisit/camping.htm",
-                generalArea: "Central Sierras"
-            }
-        })
-        const koa = await prisma.campgrounds.create({
-            data: {
-                park: "Shingletown KOA",
-                price: 38,
-                firewood: 7,
-                distance: 4.5,
-                curvy: "no",
-                reserveFrame: 6,
-                website: "https://koa.com/campgrounds/mt-lassen/",
-                generalArea: "Northern Sierras"
-            }
-        })
         //--------------------------ACTIVITIES--------------------------->
         const kayak = await prisma.activities.create({
             data: {
@@ -211,6 +90,176 @@ async function seed() {
                 name: "canoeing"
             }
         })
+        const raft = await prisma.activities.create({
+            data: {
+                name: "rafting"
+            }
+        })
+        //-------------------------CAMPGROUNDS--------------------------->
+        const lassen = await prisma.campgrounds.create({
+            data: {
+                park: "Lassen Volcanic NP",
+                price: 26,
+                firewood: 15,
+                distance: 5,
+                curvy: "no",
+                reserveFrame: 6,
+                website: "https://www.nps.gov/lavo/planyourvisit/manzanita-lake-campground.htm",
+                generalArea: "Northern Sierras",
+                activities: {connect: {
+                    id: sulphur.id,
+                    id: kayak.id,
+                    id: hike.id,
+                    id: swim.id
+                }}
+            },
+            include: {activities: true}
+        })
+        const sequoiaKingsCanyon = await prisma.campgrounds.create({
+            data: {
+                park: "Sequoia & Kings Canyon NP",
+                price: 32,
+                firewood: 7,
+                distance: 4.5,
+                curvy: "at end",
+                reserveFrame: 4,
+                website: "https://www.nps.gov/seki/planyourvisit/campgrounds.htm",
+                generalArea: "Southern Sierras",
+                activities: {connect: {
+                    id: hike.id,
+                }}
+            },
+            include: {activities: true}
+        })
+        const calaveras = await prisma.campgrounds.create({
+            data: {
+                park: "Calaveras Big Trees SP",
+                price: 35,
+                firewood: 9,
+                distance: 3,
+                curvy: "not bad",
+                reserveFrame: 6,
+                website: "https://www.parks.ca.gov/?page_id=551",
+                generalArea: "Central Sierras",
+                activities: {connect: {
+                    id: hike.id,
+                }}
+            },
+            include: {activities: true}
+        })
+        const castleCrags = await prisma.campgrounds.create({
+            data: {
+                park: "Castle Crags SP",
+                price: 25,
+                firewood: 8,
+                distance: 5,
+                curvy: "not bad",
+                reserveFrame: 6,
+                website: "https://www.parks.ca.gov/?page_id=454",
+                generalArea: "Northern Coast Range",
+                activities: {connect: {
+                    id: hike.id,
+                    id: cave.id
+                }}
+            },
+            include: {activities: true}
+        })
+        const plumasEureka = await prisma.campgrounds.create({
+            data: {
+                park: "Plumas-Eureka SP",
+                price: 35,
+                firewood: 7,
+                distance: 4.5,
+                curvy: "little",
+                reserveFrame: 6,
+                website: "https://www.parks.ca.gov/?page_id=507",
+                generalArea: "Central Sierras",
+                activities: {connect: {
+                    id: hike.id,
+                }}
+            },
+            include: {activities: true}
+        })
+        const sugarPine = await prisma.campgrounds.create({
+            data: {
+                park: "Sugar Pine Point SP",
+                price: 35,
+                firewood: 9,
+                distance: 4,
+                curvy: "no",
+                reserveFrame: 6,
+                website: "https://www.parks.ca.gov/?page_id=510",
+                generalArea: "Tahoe",
+                activities: {connect: {
+                    id: hike.id,
+                    id: swim.id,
+                    id: raft.id
+                }}
+            },
+            include: {activities: true}
+        })
+        const fallenLeafLake = await prisma.campgrounds.create({
+            data: {
+                park: "Fallen Leaf Campground",
+                price: 44,
+                firewood: 8,
+                distance: 4,
+                curvy: "at end",
+                reserveFrame: 6,
+                website: "https://www.fs.usda.gov/recarea/ltbmu/recarea/?recid=11781",
+                generalArea: "Tahoe",
+                activities: {connect: {
+                    id: hike.id,
+                    id: swim.id,
+                    id: raft.id
+                }}
+            },
+            include: {activities: true}
+        })
+        const silverLake = await prisma.campgrounds.create({
+            data: {
+                park: "Silver Lake East",
+                price: 28,
+                firewood: 0,
+                distance: 4,
+                curvy: "at end",
+                reserveFrame: 5,
+                website: "https://www.recreation.gov/camping/campgrounds/232263?tab=info",
+                generalArea: "Central Sierras",
+                activities: {connect: {
+                    id: hike.id,
+                }}
+            },
+            include: {activities: true}
+        })
+        const yosemite = await prisma.campgrounds.create({
+            data: {
+                park: "Yosemite NP",
+                price: 36,
+                firewood: 13,
+                distance: 4.5,
+                curvy: "old priest grade, or 1-hour detour",
+                reserveFrame: 5,
+                website: "https://www.nps.gov/yose/planyourvisit/camping.htm",
+                generalArea: "Central Sierras",
+                activities: {connect: {
+                    id: hike.id,
+                }}
+            },
+            include: {activities: true}
+        })
+        const koa = await prisma.campgrounds.create({
+            data: {
+                park: "Shingletown KOA",
+                price: 38,
+                firewood: 7,
+                distance: 4.5,
+                curvy: "no",
+                reserveFrame: 6,
+                website: "https://koa.com/campgrounds/mt-lassen/",
+                generalArea: "Northern Sierras"
+            }
+        })       
         //-------------------------TRIP/BUDGET--------------------------->
         const y2022 = await prisma.trip.create({
             data: {
@@ -222,13 +271,8 @@ async function seed() {
                 gasSingle: 60,
                 fireNight: 45,
                 parking: 30,
-                activities: {connect: {
-                    id: kayak.id,
-                    id: hike.id,
-                    id: swim.id
-                }}
             },
-            include: {campground: true, activities: true}
+            include: {campground: true}
         })
         const y2023 = await prisma.trip.create({
             data: {
@@ -245,13 +289,8 @@ async function seed() {
                     total: 38,
                     individual: 12.67
                 }},
-                activities: {connect: {
-                    id: kayak.id,
-                    id: hike.id,
-                    id: swim.id
-                }}
             },
-            include: {campground: true, activities: true}
+            include: {campground: true}
         })
         const y2024 = await prisma.trip.create({
             data: {
@@ -267,14 +306,8 @@ async function seed() {
                     total: 131,
                     individual: 43.68
                 }},
-                activities: {connect: {
-                    id: kayak.id,
-                    id: cave.id,
-                    id: canoe.id,
-                    id: swim.id
-                }}
             },
-            include: {campground: true, activities: true}
+            include: {campground: true}
         })
         //-----------------------------MEALS----------------------------->
         const breakfast = await prisma.meals.create({
