@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon server/index.js & webpack -w",
+    "dev": "nodemon server/index.js -w server",
     "start": "node server/index.js",
     "build": "webpack",
     "test": "jest --verbose",
