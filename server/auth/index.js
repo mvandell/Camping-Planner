@@ -142,8 +142,70 @@ authRouter.delete("/trip/:id", [requireUser, requireAdmin], async (req, res, nex
 });
 
 //<--------------------------LOGIN------------------------>
+//POST auth/login
+authRouter.post("./login", async (req, res, next) => {
+    try {
+        const {username, password} = req.body;
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username
+            },
+        });
+        const validPassword = await bcrypt.compare(
+            password, user?.password ?? ""
+        );
+        //Check user and password
+        if (!user) {
+            return res.status(401).send("There is no user with that username.");
+        } else if (!validPassword) {
+            return res.status(401).send("Incorrect password.");
+        }
+        //Create token
+        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+        res.send({token});
+        console.log("Login successful!")
+    } catch (error) {
+        next(error);
+    }
+})
 //<--------------------------POST EQUIPMENT------------------------>
+//ADMIN ONLY
+//POST auth/equipment
+authRouter.post("./equipment", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const {name, needed} = req.body;
+        const newEquipment = await prisma.equipment.create({
+            data: {
+                name,
+                needed
+            }
+        })
+    } catch (error) {
+        next(error);
+    }
+})
 //<--------------------------POST CAMPGROUND------------------------>
+//ADMIN ONLY
+//POST auth/campground
+authRouter.post("./campground", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea} = req.body;
+        const newCampground = await prisma.campgrounds.create({
+            data: {
+                park, 
+                price, 
+                firewood, 
+                distance, 
+                curvy, 
+                reserveFrame, 
+                website, 
+                generalArea
+            } //connect activities in a patch?
+        });
+    } catch (error) {
+        next(error);
+    }
+})
 
 //<--------------------------PATCH USER------------------------>
 //<--------------------------PATCH CAMPGROUND------------------------>
