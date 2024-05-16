@@ -167,7 +167,7 @@ authRouter.post("./login", async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 //<--------------------------POST EQUIPMENT------------------------>
 //ADMIN ONLY
 //POST auth/equipment
@@ -180,10 +180,11 @@ authRouter.post("./equipment", [requireUser, requireAdmin], async (req, res, nex
                 needed
             }
         })
+        res.status(201).send(newEquipment);
     } catch (error) {
         next(error);
     }
-})
+});
 //<--------------------------POST CAMPGROUND------------------------>
 //ADMIN ONLY
 //POST auth/campground
@@ -202,16 +203,110 @@ authRouter.post("./campground", [requireUser, requireAdmin], async (req, res, ne
                 generalArea
             } //connect activities in a patch?
         });
+        res.status(201).send(newCampground)
     } catch (error) {
         next(error);
     }
-})
+});
 
 //<--------------------------PATCH USER------------------------>
+//PATCH auth/account/edit
+authRouter.patch("./account/edit", requireUser, async (req, res, next) => {
+    try {
+        const {username, password} = req.body;
+        let hashedPassword = "";
+        if (password !== null) {
+            hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+            return hashedPassword;
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: {id: req.user.id},
+            data: {
+                username: username || undefined,
+                password: hashedPassword || undefined
+            }
+        });
+        delete updatedUser.password, hashedPassword;
+        res.send("User successfully updated")
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH CAMPGROUND------------------------>
+//ADMIN ONLY
+//PATCH auth/campground/:id/edit
+authRouter.patch("./campground/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea} = req.body;
+        const updatedCampground = await prisma.campgrounds.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                park: park || undefined, 
+                price: price || undefined, 
+                firewood: firewood || undefined, 
+                distance: distance || undefined, 
+                curvy: curvy || undefined, 
+                reserveFrame: reserveFrame || undefined, 
+                website: website || undefined, 
+                generalArea: generalArea || undefined
+            } //how to remove activity?
+        });
+        if (!updatedCampground) {
+            res.status(404).send({message: "Campground not found"});
+        } else {
+            res.send(updatedCampground);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH EQUIPMENT------------------------>
+//ADMIN ONLY
+//PATCH auth/equipment/:id/edit
+authRouter.patch("./equipment/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const {name} = req.body;
+        const updatedEquipment = await prisma.equipment.update({
+            where: {id: Number(req.params.id)},
+            data: {name: name || undefined}
+        });
+        if (!updatedEquipment) {
+            res.status(404).send({message: "Equipment not found"});
+        } else {
+            res.send(updatedEquipment);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------EQUIPMENT PACK TOGGLE------------------------>
+//PATCH auth/equipment/:id/pack
+authRouter.patch("./equipment/:id/pack", requireUser, async (req, res, next) => {
+    try {
+        const {packed} = req.body;
+        const packToggle = await prisma.equipment.update({
+            where: {id:Number(req.params.id)},
+            data: {packed: packed}
+        });
+        res.send(packToggle);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------EQUIPMENT NEED TOGGLE------------------------>
-
-
+//PATCH auth/equipment/:id/need
+authRouter.patch("./equipment/:id/need", requireUser, async (req, res, next) => {
+    try {
+        const {needed} = req.body;
+        const needToggle = await prisma.equipment.update({
+            where: {id:Number(req.params.id)},
+            data: {needed: needed}
+        });
+        res.send(needToggle);
+    } catch (error) {
+        next(error);
+    }
+});
+//TODO: test auth router routes
 module.exports = authRouter;
