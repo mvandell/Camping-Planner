@@ -28,7 +28,7 @@ authRouter.get("/users", [requireUser, requireAdmin], async (req, res, next) => 
 });
 //<--------------------------GET ACCOUNT------------------------>
 //GET /auth/account
-authRouter.get("./account", requireUser, async (req, res, next) => {
+authRouter.get("/account", requireUser, async (req, res, next) => {
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -43,7 +43,7 @@ authRouter.get("./account", requireUser, async (req, res, next) => {
 });
 //<--------------------------GET ALL CAMPGROUNDS------------------------>
 //GET /auth/campground
-authRouter.get("./campground", async (req, res, next) => {
+authRouter.get("/campground", async (req, res, next) => {
     try {
         const allCampgrounds = await prisma.campgrounds.findMany();
         res.send(allCampgrounds);
@@ -53,7 +53,7 @@ authRouter.get("./campground", async (req, res, next) => {
 });
 //<--------------------------GET SINGLE CAMPGROUND------------------------>
 //GET /auth/campground/:id
-authRouter.get("./campground/:id", async (req, res, next) => {
+authRouter.get("/campground/:id", async (req, res, next) => {
     try {
         const campground = await prisma.campgrounds.findUnique({
             where: {
@@ -67,7 +67,7 @@ authRouter.get("./campground/:id", async (req, res, next) => {
 });
 //<--------------------------GET ALL EQUIPMENT------------------------>
 //GET /auth/equipment
-authRouter.get("./equipment", requireUser, async (req, res, next) => {
+authRouter.get("/equipment", requireUser, async (req, res, next) => {
     try {
         const allEquipment = await prisma.equipment.findMany();
         res.send(allEquipment);
@@ -143,7 +143,7 @@ authRouter.delete("/trip/:id", [requireUser, requireAdmin], async (req, res, nex
 
 //<--------------------------LOGIN------------------------>
 //POST auth/login
-authRouter.post("./login", async (req, res, next) => {
+authRouter.post("/login", async (req, res, next) => {
     try {
         const {username, password} = req.body;
         const user = await prisma.user.findUnique({
@@ -171,7 +171,7 @@ authRouter.post("./login", async (req, res, next) => {
 //<--------------------------POST EQUIPMENT------------------------>
 //ADMIN ONLY
 //POST auth/equipment
-authRouter.post("./equipment", [requireUser, requireAdmin], async (req, res, next) => {
+authRouter.post("/equipment", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const {name, needed} = req.body;
         const newEquipment = await prisma.equipment.create({
@@ -188,7 +188,7 @@ authRouter.post("./equipment", [requireUser, requireAdmin], async (req, res, nex
 //<--------------------------POST CAMPGROUND------------------------>
 //ADMIN ONLY
 //POST auth/campground
-authRouter.post("./campground", [requireUser, requireAdmin], async (req, res, next) => {
+authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea} = req.body;
         const newCampground = await prisma.campgrounds.create({
@@ -211,7 +211,7 @@ authRouter.post("./campground", [requireUser, requireAdmin], async (req, res, ne
 
 //<--------------------------PATCH USER------------------------>
 //PATCH auth/account/edit
-authRouter.patch("./account/edit", requireUser, async (req, res, next) => {
+authRouter.patch("/account/edit", requireUser, async (req, res, next) => {
     try {
         const {username, password} = req.body;
         let hashedPassword = "";
@@ -236,7 +236,7 @@ authRouter.patch("./account/edit", requireUser, async (req, res, next) => {
 //<--------------------------PATCH CAMPGROUND------------------------>
 //ADMIN ONLY
 //PATCH auth/campground/:id/edit
-authRouter.patch("./campground/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
+authRouter.patch("/campground/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea} = req.body;
         const updatedCampground = await prisma.campgrounds.update({
@@ -264,7 +264,7 @@ authRouter.patch("./campground/:id/edit", [requireUser, requireAdmin], async (re
 //<--------------------------PATCH EQUIPMENT------------------------>
 //ADMIN ONLY
 //PATCH auth/equipment/:id/edit
-authRouter.patch("./equipment/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
+authRouter.patch("/equipment/:id/edit", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const {name} = req.body;
         const updatedEquipment = await prisma.equipment.update({
@@ -282,7 +282,7 @@ authRouter.patch("./equipment/:id/edit", [requireUser, requireAdmin], async (req
 });
 //<--------------------------EQUIPMENT PACK TOGGLE------------------------>
 //PATCH auth/equipment/:id/pack
-authRouter.patch("./equipment/:id/pack", requireUser, async (req, res, next) => {
+authRouter.patch("/equipment/:id/pack", requireUser, async (req, res, next) => {
     try {
         const {packed} = req.body;
         const packToggle = await prisma.equipment.update({
@@ -296,7 +296,7 @@ authRouter.patch("./equipment/:id/pack", requireUser, async (req, res, next) => 
 });
 //<--------------------------EQUIPMENT NEED TOGGLE------------------------>
 //PATCH auth/equipment/:id/need
-authRouter.patch("./equipment/:id/need", requireUser, async (req, res, next) => {
+authRouter.patch("/equipment/:id/need", requireUser, async (req, res, next) => {
     try {
         const {needed} = req.body;
         const needToggle = await prisma.equipment.update({
