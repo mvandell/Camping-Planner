@@ -8,7 +8,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 //<--------------------------GET ALL TRIPS------------------------>
-//GET /api/trip
+//GET api/trip
 apiRouter.get("/trip", requireUser, async (req, res, next) => {
     try {
         const allTrips = await prisma.trip.findMany();
@@ -18,7 +18,7 @@ apiRouter.get("/trip", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------GET SINGLE TRIP------------------------>
-//GET /api/trip/:id
+//GET api/trip/:id
 apiRouter.get("/trip/:id", requireUser, async (req, res, next) => {
     try {
         const trip = await prisma.trip.findUnique({
@@ -32,7 +32,7 @@ apiRouter.get("/trip/:id", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------GET ALL BUDGETS------------------------>
-//GET /api/budget
+//GET api/budget
 apiRouter.get("/budget", requireUser, async (req, res, next) => {
     try {
         const allBudgets = await prisma.budget.findMany();
@@ -42,7 +42,7 @@ apiRouter.get("/budget", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------GET ALL CLOTHING------------------------>
-//GET /api/clothing
+//GET api/clothing
 apiRouter.get("/clothing", requireUser, async (req, res, next) => {
     try {
         const allClothing = await prisma.clothing.findMany();
@@ -52,7 +52,7 @@ apiRouter.get("/clothing", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------GET ALL ACTIVITIES------------------------>
-//GET /api/activity
+//GET api/activity
 apiRouter.get("/activity", requireUser, async (req, res, next) => {
     try {
         const allActivities = await prisma.activities.findMany();
@@ -62,7 +62,7 @@ apiRouter.get("/activity", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------DELETE BUDGET------------------------>
-//DELETE /api/budget/:id
+//DELETE api/budget/:id
 apiRouter.delete("/budget/:id", requireUser, async (req, res, next) => {
     try {
         const deletedBudget = await prisma.budget.delete({
@@ -77,7 +77,7 @@ apiRouter.delete("/budget/:id", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------DELETE CLOTHING------------------------>
-//DELETE /api/clothing/:id
+//DELETE api/clothing/:id
 apiRouter.delete("/clothing/:id", requireUser, async (req, res, next) => {
     try {
         const deletedClothing = await prisma.clothing.delete({
@@ -92,7 +92,7 @@ apiRouter.delete("/clothing/:id", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------DELETE ACTIVITY------------------------>
-//DELETE /api/activity/:id
+//DELETE api/activity/:id
 apiRouter.delete("/activity/:id", requireUser, async (req, res, next) => {
     try {
         const deletedActivity = await prisma.activities.delete({
@@ -107,7 +107,7 @@ apiRouter.delete("/activity/:id", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------POST NEW TRIP------------------------>
-//POST /api/trip
+//POST api/trip
 apiRouter.post("/trip", requireUser, async (req, res, next) => {
     try {
         const {startDate, endDate, campgroundId, gasTotal, gasSingle, fireNight, parking} = req.body;
@@ -129,7 +129,7 @@ apiRouter.post("/trip", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------POST NEW BUDGET------------------------>
-//POST /api/budget
+//POST api/budget
 apiRouter.post("/budget", requireUser, async (req, res, next) => {
     try {
         const {name, tripId, total, individual} = req.body;
@@ -148,7 +148,7 @@ apiRouter.post("/budget", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------POST NEW CLOTHING------------------------>
-//POST /api/clothing
+//POST api/clothing
 apiRouter.post("/clothing", requireUser, async (req, res, next) => {
     try {
         const {name} = req.body;
@@ -165,7 +165,7 @@ apiRouter.post("/clothing", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------POST NEW ACTIVITY------------------------>
-//POST /api/activity
+//POST api/activity
 apiRouter.post("/activity", requireUser, async (req, res, next) => {
     try {
         const {name} = req.body;
@@ -180,11 +180,120 @@ apiRouter.post("/activity", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------PATCH TRIP------------------------>
+//PATCH api/trip/:id/edit
+apiRouter.patch("/trip/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {startDate, endDate, campgroundId, gasTotal, gasSingle, fireNight, parking} = req.body;
+        const updatedTrip = await prisma.trip.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                startDate: startDate || undefined,
+                endDate: endDate || undefined,
+                campground: campgroundId ? {connect: {id: campgroundId}} : undefined,
+                gasTotal: gasTotal || undefined,
+                gasSingle: gasSingle || undefined,
+                fireNight: fireNight || undefined,
+                parking: parking || undefined
+            } //how to remove meals?
+        })
+        if (!updatedTrip) {
+            res.status(404).send({message: "Trip not found"});
+        } else {
+            res.send(updatedTrip);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------TRIP CURRENT TOGGLE------------------------>
+//PATCH api/trip/:id/current
+apiRouter.patch("/trip/:id/current", requireUser, async (req, res, next) => {
+    try {
+        const {current} = req.body;
+        const currentToggle = await prisma.trip.update({
+            where: {id: Number(req.params.id)},
+            data: {current: current}
+        });
+        res.send(currentToggle);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH BUDGET------------------------>
+//PATCH api/budget/:id/edit
+apiRouter.patch("/budget/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {tripId, total, individual} = req.body;
+        const updatedBudget = await prisma.budget.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                trip: tripId ? {connect: {id: tripId}} : undefined,
+                total: total || undefined,
+                individual: individual || undefined
+            }
+        });
+        if (!updatedBudget) {
+            res.status(404).send({message: "Budget not found"});
+        } else {
+            res.send(updatedBudget);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH CLOTHING------------------------>
+//PATCH api/clothing/:id/edit
+apiRouter.patch("/clothing/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {name} = req.body;
+        const updatedClothing = await prisma.clothing.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                name: name || undefined
+            }
+        });
+        if (!updatedClothing) {
+            res.status(404).send({message: "Clothing not found"});
+        } else {
+            res.send(updatedClothing);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------CLOTHING PACK TOGGLE------------------------>
+//PATCH api/clothing/:id/packed
+apiRouter.patch("/clothing/:id/packed", requireUser, async (req, res, next) => {
+    try {
+        const {packed} = req.body;
+        const packedToggle = await prisma.clothing.update({
+            where: {id: Number(req.params.id)},
+            data: {packed: packed}
+        });
+        res.send(packedToggle);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH ACTIVITY------------------------>
-
-
+//PATCH api/activity/:id/edit
+apiRouter.patch("/activity/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {name} = req.body;
+        const updatedActivity = await prisma.activities.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                name: name || undefined
+            }
+        });
+        if (!updatedActivity) {
+            res.status(404).send({message: "Activity not found"});
+        } else {
+            res.send(updatedActivity);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//TODO: test routes in Postman
 module.exports = apiRouter;

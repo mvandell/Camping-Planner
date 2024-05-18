@@ -300,7 +300,7 @@ authRouter.patch("/equipment/:id/need", requireUser, async (req, res, next) => {
     try {
         const {needed} = req.body;
         const needToggle = await prisma.equipment.update({
-            where: {id:Number(req.params.id)},
+            where: {id: Number(req.params.id)},
             data: {needed: needed}
         });
         res.send(needToggle);
@@ -308,5 +308,5 @@ authRouter.patch("/equipment/:id/need", requireUser, async (req, res, next) => {
         next(error);
     }
 });
-//TODO: test auth router routes
+
 module.exports = authRouter;
