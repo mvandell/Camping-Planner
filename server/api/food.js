@@ -107,9 +107,74 @@ foodRouter.post("/food", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------PATCH MEAL------------------------>
+//PATCH api/food/meal/:id/edit
+foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {day, course, name} = req.body;
+        const updatedMeal = await prisma.meals.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                day: day || undefined,
+                course: course || undefined,
+                name: name || undefined
+            } //how to remove food?
+        })
+        if (!updatedMeal) {
+            res.status(404).send({message: "Meal not found"});
+        } else {
+            res.send(updatedMeal);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------PATCH FOOD------------------------>
+//PATCH api/food/food/:id/edit
+foodRouter.patch("/food/:id/edit", requireUser, async (req, res, next) => {
+    try {
+        const {name} = req.body;
+        const updatedFood = await prisma.food.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                name: name || undefined
+            }
+        })
+        if (!updatedFood) {
+            res.status(404).send({message: "Food not found"});
+        } else {
+            res.send(updatedFood);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------FOOD PURCHASE TOGGLE------------------------>
+//PATCH api/food/food/:id/purchased
+foodRouter.patch("/food/:id/purchased", requireUser, async (req, res, next) => {
+    try {
+        const {purchased} = req.body;
+        const purchaseToggle = await prisma.food.update({
+            where: {id: Number(req.params.id)},
+            data: {name: name}
+        });
+        res.send(purchaseToggle)
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------FOOD COOLER TOGGLE------------------------>
-
-
+//PATCH api/food/food/:id/cooler
+foodRouter.patch("/food/:id/cooler", requireUser, async (req, res, next) => {
+    try {
+        const {cooler} = req.body;
+        const coolerToggle = await prisma.food.update({
+            where: {id: Number(req.params.id)},
+            data: {cooler: cooler}
+        });
+        res.send(coolerToggle)
+    } catch (error) {
+        next(error);
+    }
+});
+//test routes in Postman
 module.exports = foodRouter;
