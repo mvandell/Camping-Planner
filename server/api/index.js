@@ -295,5 +295,5 @@ apiRouter.patch("/activity/:id/edit", requireUser, async (req, res, next) => {
         next(error);
     }
 });
-//TODO: test routes in Postman
+
 module.exports = apiRouter;

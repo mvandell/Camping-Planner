@@ -155,7 +155,7 @@ foodRouter.patch("/food/:id/purchased", requireUser, async (req, res, next) => {
         const {purchased} = req.body;
         const purchaseToggle = await prisma.food.update({
             where: {id: Number(req.params.id)},
-            data: {name: name}
+            data: {purchased: purchased}
         });
         res.send(purchaseToggle)
     } catch (error) {
@@ -176,5 +176,5 @@ foodRouter.patch("/food/:id/cooler", requireUser, async (req, res, next) => {
         next(error);
     }
 });
-//test routes in Postman
+
 module.exports = foodRouter;
