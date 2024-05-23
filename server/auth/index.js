@@ -67,7 +67,7 @@ authRouter.get("/campground/:id", async (req, res, next) => {
 });
 //<--------------------------GET ALL EQUIPMENT------------------------>
 //GET /auth/equipment
-authRouter.get("/equipment", requireUser, async (req, res, next) => {
+authRouter.get("/equipment", async (req, res, next) => {
     try {
         const allEquipment = await prisma.equipment.findMany();
         res.send(allEquipment);
