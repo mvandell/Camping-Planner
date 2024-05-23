@@ -41,6 +41,19 @@ foodRouter.get("/food", requireUser, async (req, res, next) => {
         next(error);
     }
 });
+//<--------------------------GET FOOD BY USER------------------------>
+//GET api/food/food/:user
+foodRouter.get("/food/:user", requireUser, async (req, res, next) => {
+    try {
+        const userFood = await prisma.food.findMany({
+            where: { userId: req.user.id },
+            include: { user: true }
+        });
+        res.send(userFood);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------DELETE MEAL------------------------>
 //DELETE api/food/meal/:id
 foodRouter.delete("/meal/:id", requireUser, async (req, res, next) => {

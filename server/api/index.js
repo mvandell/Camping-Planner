@@ -41,12 +41,15 @@ apiRouter.get("/budget", requireUser, async (req, res, next) => {
         next(error);
     }
 });
-//<--------------------------GET ALL CLOTHING------------------------>
-//GET api/clothing
-apiRouter.get("/clothing", requireUser, async (req, res, next) => {
+//<--------------------------GET CLOTHING BY USER------------------------>
+//GET api/clothing/:user
+apiRouter.get("/clothing/:user", requireUser, async (req, res, next) => {
     try {
-        const allClothing = await prisma.clothing.findMany();
-        res.send(allClothing);
+        const userClothing = await prisma.clothing.findMany({
+            where: {userId: req.user.id},
+            include: {user: true}
+        });
+        res.send(userClothing);
     } catch (error) {
         next(error);
     }
