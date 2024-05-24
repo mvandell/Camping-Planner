@@ -41,6 +41,19 @@ apiRouter.get("/budget", requireUser, async (req, res, next) => {
         next(error);
     }
 });
+//<--------------------------GET BUDGETS BY TRIP------------------------>
+//GET api/budget/:trip
+apiRouter.get("/budget/:trip", requireUser, async (req, res, next) => {
+    try {
+        const tripBudgets = await prisma.budget.findMany({
+            where: {tripId: Number(req.params.id)},
+            include: {trip: true}
+        });
+        res.send(tripBudgets);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------GET CLOTHING BY USER------------------------>
 //GET api/clothing/:user
 apiRouter.get("/clothing/:user", requireUser, async (req, res, next) => {
