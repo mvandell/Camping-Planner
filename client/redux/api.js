@@ -65,6 +65,7 @@ const api = createApi({
         }),
         //<---------------------------GUEST--------------------------->
         //GET ALL EQUIPMENT
+        
         //GET ALL CAMPGROUNDS
         //GET SINGLE CAMPGROUND
         //<---------------------------GET BY TRIP--------------------------->
@@ -74,7 +75,8 @@ const api = createApi({
         //GET ALL TRIPS
         //GET ALL BUDGETS
         //GET ALL MEALS
-        //GET ALL ACTIVITIES?
+        //GET ALL ACTIVITIES
+        //GET ACTIVITIES BY CAMPGROUND
         //<---------------------------GET SINGLE--------------------------->
         //GET SINGLE TRIP
         //GET SINGLE MEAL

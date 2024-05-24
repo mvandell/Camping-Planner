@@ -18,7 +18,7 @@ foodRouter.get("/meal", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------GET MEALS BY TRIP------------------------>
-//GET api/food/meal/:trip
+//GET api/food/meal/trip/:trip
 foodRouter.get("/meal/:trip", requireUser, async (req, res, next) => {
     try {
         const tripMeals = await prisma.meals.findMany({

@@ -77,6 +77,19 @@ apiRouter.get("/activity", requireUser, async (req, res, next) => {
         next(error);
     }
 });
+//<--------------------------GET ACTIVITIES BY CAMPGROUND------------------------>
+//GET api/activity/:campground
+apiRouter.get("/activity/:campground", requireUser, async (req, res, next) => {
+    try {
+        const campgroundActivities = await prisma.activities.findMany({
+            where: {campgroundId: Number(req.params.id)},
+            include: {campgrounds: true}
+        });
+        res.send(campgroundActivities);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------DELETE BUDGET------------------------>
 //DELETE api/budget/:id
 apiRouter.delete("/budget/:id", requireUser, async (req, res, next) => {
