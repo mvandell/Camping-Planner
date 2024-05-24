@@ -48,7 +48,7 @@ const api = createApi({
             providesTags: ["Me"]
         }),
         //GET FOOD BY USER
-        getFoodByUser: builder.query({
+        getUserFood: builder.query({
             query: (user) => ({
                 url: `/api/food/food/${user}`,
                 method: "GET",
@@ -56,7 +56,7 @@ const api = createApi({
             providesTags: ["Food"]
         }),
         //GET CLOTHING BY USER
-        getClothingByUser: builder.query({
+        getUserClothing: builder.query({
             query: (user) => ({
                 url: `/api/clothing/${user}`,
                 method: "GET",
@@ -65,21 +65,104 @@ const api = createApi({
         }),
         //<---------------------------GUEST--------------------------->
         //GET ALL EQUIPMENT
-        
+        getAllEquipment: builder.query({
+            query: () => ({
+                url: "/auth/equipment",
+                method: "GET",
+            }),
+            providesTags: ["Equipment"]
+        }),
         //GET ALL CAMPGROUNDS
+        getAllCampgrounds: builder.query({
+            query: () => ({
+                url: "/auth/campground",
+                method: "GET",
+            }),
+            providesTags: ["Campgrounds"]
+        }),
         //GET SINGLE CAMPGROUND
+        getSingleCampground: builder.query({
+            query: (id) => ({
+                url: `/auth/campground/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["Campgrounds"]
+        }),
         //<---------------------------GET BY TRIP--------------------------->
         //GET BUDGETS BY TRIP
+        getTripBudgets: builder.query({
+            query: (trip) => ({
+                url: `/api/budget/${trip}`,
+                method: "GET",
+            }),
+            providesTags: ["Budgets"]
+        }),
         //GET MEALS BY TRIP
+        getTripMeals: builder.query({
+            query: (trip) => ({
+                url: `/api/food/meal/trip/${trip}`,
+                method: "GET",
+            }),
+            providesTags: ["Meals"]
+        }),
         //<---------------------------GET ALL--------------------------->
         //GET ALL TRIPS
+        getAllTrips: builder.query({
+            query: () => ({
+                url: "/api/trip",
+                method: "GET",
+            }),
+            providesTags: ["Trips"]
+        }),
         //GET ALL BUDGETS
+        getAllBudgets: builder.query({
+            query: () => ({
+                url: "/api/budget",
+                method: "GET",
+            }),
+            providesTags: ["Budgets"]
+        }),
         //GET ALL MEALS
+        getAllMeals: builder.query({
+            query: () => ({
+                url: "/api/food/meal",
+                method: "GET",
+            }),
+            providesTags: ["Meals"]
+        }),
         //GET ALL ACTIVITIES
+        getAllActivities: builder.query({
+            query: () => ({
+                url: "/api/activity",
+                method: "GET",
+            }),
+            providesTags: ["Activities"]
+        }),
         //GET ACTIVITIES BY CAMPGROUND
+        getCampgroundActivities: builder.query({
+            query: (campground) => ({
+                url: `/api/activity/${campground}`,
+                method: "GET",
+            }),
+            providesTags: ["Activities"]
+        }),
         //<---------------------------GET SINGLE--------------------------->
         //GET SINGLE TRIP
+        getSingleTrip: builder.query({
+            query: (id) => ({
+                url: `/api/trip/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["Trips"]
+        }),
         //GET SINGLE MEAL
+        getSingleMeal: builder.query({
+            query: (id) => ({
+                url: `/api/food/meal/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["Meals"]
+        }),
         //<---------------------------POST--------------------------->
         //POST TRIP
         //POST BUDGET
