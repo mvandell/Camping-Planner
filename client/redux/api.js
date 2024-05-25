@@ -385,7 +385,7 @@ const api = createApi({
         }),
         //<---------------------------ADMIN--------------------------->
         //GET ALL USERS
-        //DELETE USER?
+
         //DELETE TRIP
         //POST CAMPGROUND
         //POST EQUIPMENT

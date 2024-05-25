@@ -75,23 +75,6 @@ authRouter.get("/equipment", async (req, res, next) => {
         next(error);
     }
 });
-
-//<--------------------------DELETE USER------------------------>
-//ADMIN ONLY
-//DELETE /auth/user/:id
-authRouter.delete("/user/:id", [requireUser, requireAdmin], async (req, res, next) => {
-    try {
-        const deletedUser = await prisma.user.delete({
-            where: {id: +req.params.id}
-        });
-        if (!deletedUser) {
-            return res.status(404).send("User not found");
-        }
-        res.send("User successfully deleted");
-    } catch (error) {
-        next(error);
-    }
-});
 //<--------------------------DELETE CAMPGROUND------------------------>
 //ADMIN ONLY
 //DELETE /auth/campground/:id
