@@ -463,14 +463,62 @@ export default api;
 export const {
     //AUTHORIZATION
     useLoginMutation,
+    useLogoutMutation,
     //GET USER INFO
+    useGetUserQuery,
+    useGetUserFoodQuery,
+    useGetUserClothingQuery,
     //GUEST
+    useGetAllEquipmentQuery,
+    useGetAllCampgroundsQuery,
+    useGetSingleCampgroundQuery,
     //GET BY TRIP
+    useGetTripBudgetsQuery,
+    useGetTripMealsQuery,
     //GET ALL
+    useGetAllTripsQuery,
+    useGetAllBudgetsQuery,
+    useGetAllMealsQuery,
+    useGetAllActivitiesQuery,
+    useGetCampgroundActivitiesQuery,
     //GET SINGLE
+    useGetSingleTripQuery,
+    useGetSingleMealQuery,
     //POST
+    usePostTripMutation,
+    usePostBudgetMutation,
+    usePostMealMutation,
+    usePostFoodMutation,
+    usePostClothingMutation,
+    usePostActivityMutation,
     //PATCH
+    usePatchUserMutation,
+    usePatchTripMutation,
+    usePatchBudgetMutation,
+    usePatchMealMutation,
+    usePatchFoodMutation,
+    usePatchClothingMutation,
+    usePatchActivityMutation,
     //TOGGLES
+    usePatchTripCurrentToggleMutation,
+    usePatchFoodCoolerToggleMutation,
+    usePatchFoodPurchaseToggleMutation,
+    usePatchClothingPackToggleMutation,
+    usePatchEquipmentPackToggleMutation,
+    usePatchEquipmentNeedToggleMutation,
     //DELETE
+    useDeleteBudgetMutation,
+    useDeleteMealMutation,
+    useDeleteFoodMutation,
+    useDeleteClothingMutation,
+    useDeleteActivityMutation,
     //ADMIN
+    useGetAllUsersQuery,
+    usePostCampgroundMutation,
+    usePostEquipmentMutation,
+    usePatchCampgroundMutation,
+    usePatchEquipmentMutation,
+    useDeleteTripMutation,
+    useDeleteCampgroundMutation,
+    useDeleteEquipmentMutation
 } = api
