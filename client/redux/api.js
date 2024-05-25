@@ -385,15 +385,92 @@ const api = createApi({
         }),
         //<---------------------------ADMIN--------------------------->
         //GET ALL USERS
-
-        //DELETE TRIP
+        getAllUsers: builder.query({
+            query: () => ({
+                url: `/auth/users`,
+                method: 'GET',
+            }),
+            providesTags: ["Users"]
+        }),
         //POST CAMPGROUND
+        postCampground: builder.mutation({
+            query: (campground) => ({
+                url: "/auth/campground",
+                method: "POST",
+                body: campground,
+            }),
+            invalidatesTags: ["Campgrounds"]
+        }),
         //POST EQUIPMENT
+        postEquipment: builder.mutation({
+            query: (equipment) => ({
+                url: "/auth/equipment",
+                method: "POST",
+                body: equipment,
+            }),
+            invalidatesTags: ["Equipment"]
+        }),
         //PATCH CAMPGROUND
+        patchCampground: builder.mutation({
+            query: ({id, park, price, firewood, distance, curvy, reserveFrame, website, generalArea}) => ({
+                url: `/auth/campground/${id}/edit`,
+                method: "PATCH",
+                body: {park, price, firewood, distance, curvy, reserveFrame, website, generalArea},
+            }),
+            invalidatesTags: ["Campgrounds"]
+        }),
         //PATCH EQUIPMENT
+        patchEquipment: builder.mutation({
+            query: ({id, name}) => ({
+                url: `/auth/equipment/${id}/edit`,
+                method: "PATCH",
+                body: {name} 
+            }),
+            invalidatesTags: ["Equipment"]
+        }),
+        //DELETE TRIP
+        deleteTrip: builder.mutation({
+            query: (id, trip) => ({
+                url: `/auth/trip/${id}`,
+                method: "DELETE",
+                body: trip
+            }),
+            invalidatesTags: ["Trips"]
+        }),
         //DELETE CAMPGROUND
+        deleteCampground: builder.mutation({
+            query: (id, campground) => ({
+                url: `/auth/campground/${id}`,
+                method: "DELETE",
+                body: campground
+            }),
+            invalidatesTags: ["Campgrounds"]
+        }),
         //DELETE EQUIPMENT
-    
-    })
-
+        deleteEquipment: builder.mutation({
+            query: (id, equipment) => ({
+                url: `/auth/equipment/${id}`,
+                method: "DELETE",
+                body: equipment
+            }),
+            invalidatesTags: ["Equipment"]
+        }),
+    }),
 })
+
+export default api;
+
+export const {
+    //AUTHORIZATION
+    
+    //GET USER INFO
+    //GUEST
+    //GET BY TRIP
+    //GET ALL
+    //GET SINGLE
+    //POST
+    //PATCH
+    //TOGGLES
+    //DELETE
+    //ADMIN
+} = api
