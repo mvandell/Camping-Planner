@@ -462,7 +462,7 @@ export default api;
 
 export const {
     //AUTHORIZATION
-    
+    useLoginMutation,
     //GET USER INFO
     //GUEST
     //GET BY TRIP
