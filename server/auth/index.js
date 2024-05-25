@@ -250,7 +250,7 @@ authRouter.patch("/campground/:id/edit", [requireUser, requireAdmin], async (req
                 reserveFrame: reserveFrame || undefined, 
                 website: website || undefined, 
                 generalArea: generalArea || undefined
-            } //how to remove activity?
+            } //how to remove activity? - checkboxes
         });
         if (!updatedCampground) {
             res.status(404).send({message: "Campground not found"});

@@ -165,32 +165,224 @@ const api = createApi({
         }),
         //<---------------------------POST--------------------------->
         //POST TRIP
+        postTrip: builder.mutation({
+            query: (trip) => ({
+                url: "/api/trip",
+                method: "POST",
+                body: trip,
+            }),
+            invalidatesTags: ["Trips"]
+        }),
         //POST BUDGET
+        postBudget: builder.mutation({
+            query: (budget) => ({
+                url: "/api/budget",
+                method: "POST",
+                body: budget,
+            }),
+            invalidatesTags: ["Budgets"]
+        }),
         //POST MEAL
+        postMeal: builder.mutation({
+            query: (meal) => ({
+                url: "/api/food/meal",
+                method: "POST",
+                body: meal,
+            }),
+            invalidatesTags: ["Meals"]
+        }),
         //POST FOOD
+        postFood: builder.mutation({
+            query: (food) => ({
+                url: "/api/food/food",
+                method: "POST",
+                body: food,
+            }),
+            invalidatesTags: ["Food"]
+        }),
         //POST CLOTHING
+        postClothing: builder.mutation({
+            query: (clothing) => ({
+                url: "/api/clothing",
+                method: "POST",
+                body: clothing,
+            }),
+            invalidatesTags: ["Clothing"]
+        }),
         //POST ACTIVITY
+        postActivity: builder.mutation({
+            query: (activity) => ({
+                url: "/api/activity",
+                method: "POST",
+                body: activity,
+            }),
+            invalidatesTags: ["Activities"]
+        }),
         //<---------------------------PATCH--------------------------->
         //PATCH USER
+        patchUser: builder.mutation({
+            query: ({username, password}) => ({
+                url: "/auth/account/edit",
+                method: "PATCH",
+                body: {username, password},
+            }),
+            invalidatesTags: ["Me"]
+        }),
         //PATCH TRIP
+        patchTrip: builder.mutation({
+            query: ({id, startDate, endDate, gasTotal, gasSingle, fireNight, parking}) => ({
+                url: `/api/trip/${id}/edit`,
+                method: "PATCH",
+                body: {startDate, endDate, gasTotal, gasSingle, fireNight, parking},
+            }),
+            invalidatesTags: ["Trips"]
+        }),
         //PATCH BUDGET
+        patchBudget: builder.mutation({
+            query: ({id, total, individual}) => ({
+                url: `/api/budget/${id}/edit`,
+                method: "PATCH",
+                body: {total, individual},
+            }),
+            invalidatesTags: ["Budgets"]
+        }),
         //PATCH MEAL
+        patchMeal: builder.mutation({
+            query: ({id, day, course, name}) => ({
+                url: `/api/food/meal/${id}/edit`,
+                method: "PATCH",
+                body: {day, course, name},
+            }),
+            invalidatesTags: ["Meals"]
+        }),
         //PATCH FOOD
+        patchFood: builder.mutation({
+            query: ({id, name}) => ({
+                url: `/api/food/food/${id}/edit`,
+                method: "PATCH",
+                body: {name},
+            }),
+            invalidatesTags: ["Food"]
+        }),
         //PATCH CLOTHING
+        patchClothing: builder.mutation({
+            query: ({id, name}) => ({
+                url: `/api/clothing/${id}/edit`,
+                method: "PATCH",
+                body: {name},
+            }),
+            invalidatesTags: ["Clothing"]
+        }),
         //PATCH ACTIVITY
+        patchActivity: builder.mutation({
+            query: ({id, name}) => ({
+                url: `/api/activity/${id}/edit`,
+                method: "PATCH",
+                body: {name},
+            }),
+            invalidatesTags: ["Activities"]
+        }),
         //<---------------------------TOGGLES--------------------------->
         //TRIP CURRENT TOGGLE
+        patchTripCurrentToggle: builder.mutation({
+            query: ({id, current}) => ({
+                url: `/api/trip/${id}/current`,
+                method: "PATCH",
+                body: {current},
+            }),
+            invalidatesTags: ["Trips"]
+        }),
         //FOOD COOLER TOGGLE
+        patchFoodCoolerToggle: builder.mutation({
+            query: ({id, cooler}) => ({
+                url: `/api/food/food/${id}/cooler`,
+                method: "PATCH",
+                body: {cooler},
+            }),
+            invalidatesTags: ["Food"]
+        }),
         //FOOD PURCHASE TOGGLE
+        patchFoodPurchaseToggle: builder.mutation({
+            query: ({id, purchased}) => ({
+                url: `/api/food/food/${id}/purchased`,
+                method: "PATCH",
+                body: {purchased},
+            }),
+            invalidatesTags: ["Food"]
+        }),
         //CLOTHING PACK TOGGLE
+        patchClothingPackToggle: builder.mutation({
+            query: ({id, packed}) => ({
+                url: `/api/clothing/${id}/packed`,
+                method: "PATCH",
+                body: {packed},
+            }),
+            invalidatesTags: ["Clothing"]
+        }),
         //EQUIPMENT PACK TOGGLE
+        patchEquipmentPackToggle: builder.mutation({
+            query: ({id, packed}) => ({
+                url: `/auth/equipment/${id}/pack`,
+                method: "PATCH",
+                body: {packed},
+            }),
+            invalidatesTags: ["Equipment"]
+        }),
         //EQUIPMENT NEED TOGGLE
+        patchEquipmentNeedToggle: builder.mutation({
+            query: ({id, needed}) => ({
+                url: `/auth/equipment/${id}/need`,
+                method: "PATCH",
+                body: {needed},
+            }),
+            invalidatesTags: ["Equipment"]
+        }),
         //<---------------------------DELETE--------------------------->
         //DELETE BUDGET
+        deleteBudget: builder.mutation({
+            query: (id, budget) => ({
+                url: `/api/budget/${id}`,
+                method: "DELETE",
+                body: budget
+            }),
+            invalidatesTags: ["Budgets"]
+        }),
         //DELETE MEAL
+        deleteMeal: builder.mutation({
+            query: (id, meal) => ({
+                url: `/api/food/meal/${id}`,
+                method: "DELETE",
+                body: meal
+            }),
+            invalidatesTags: ["Meals"]
+        }),
         //DELETE FOOD
+        deleteFood: builder.mutation({
+            query: (id, food) => ({
+                url: `/api/food/food/${id}`,
+                method: "DELETE",
+                body: food
+            }),
+            invalidatesTags: ["Food"]
+        }),
         //DELETE CLOTHING
+        deleteClothing: builder.mutation({
+            query: (id, clothing) => ({
+                url: `/api/clothing/${id}`,
+                method: "DELETE",
+                body: clothing
+            }),
+            invalidatesTags: ["Clothing"]
+        }),
         //DELETE ACTIVITY
+        deleteActivity: builder.mutation({
+            query: (id, activity) => ({
+                url: `/api/activity/${id}`,
+                method: "DELETE",
+                body: activity
+            }),
+            invalidatesTags: ["Activities"]
+        }),
         //<---------------------------ADMIN--------------------------->
         //GET ALL USERS
         //DELETE USER?
