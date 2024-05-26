@@ -143,7 +143,7 @@ foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
                 day: day || undefined,
                 course: course || undefined,
                 name: name || undefined
-            } //how to remove food?
+            } //how to remove food? - checkboxes on edit form?
         })
         if (!updatedMeal) {
             res.status(404).send({message: "Meal not found"});

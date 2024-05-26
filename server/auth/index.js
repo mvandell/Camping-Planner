@@ -184,7 +184,7 @@ authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, nex
                 reserveFrame, 
                 website, 
                 generalArea
-            } //connect activities in a patch?
+            } //connect activities in a patch? - checkboxes on post form?
         });
         res.status(201).send(newCampground)
     } catch (error) {
@@ -233,7 +233,7 @@ authRouter.patch("/campground/:id/edit", [requireUser, requireAdmin], async (req
                 reserveFrame: reserveFrame || undefined, 
                 website: website || undefined, 
                 generalArea: generalArea || undefined
-            } //how to remove activity? - checkboxes
+            } //how to remove activity? - checkboxes?
         });
         if (!updatedCampground) {
             res.status(404).send({message: "Campground not found"});

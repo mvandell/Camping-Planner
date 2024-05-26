@@ -105,6 +105,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.nps.gov/lavo/planyourvisit/manzanita-lake-campground.htm",
                 generalArea: "Northern Sierras",
+                picture: "https://www.recreation.gov/camping/campgrounds/234039",
                 activities: {connect: {
                     id: sulphur.id,
                     id: kayak.id,
@@ -122,8 +123,9 @@ async function seed() {
                 distance: 4.5,
                 curvy: "at end",
                 reserveFrame: 4,
-                website: "https://www.nps.gov/seki/planyourvisit/campgrounds.htm",
+                website: "https://cdn.recreation.gov/public/2018/09/17/13/37/234039_929e2ff8-9952-458e-8299-c76e692b3be8.jpg",
                 generalArea: "Southern Sierras",
+                picture: "https://cdn.recreation.gov/public/images/82369.jpg",
                 activities: {connect: {
                     id: hike.id,
                 }}
@@ -140,6 +142,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.parks.ca.gov/?page_id=551",
                 generalArea: "Central Sierras",
+                picture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/4e/be/81/walk-between-two-halves.jpg?w=1200&h=-1&s=1",
                 activities: {connect: {
                     id: hike.id,
                 }}
@@ -156,6 +159,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.parks.ca.gov/?page_id=454",
                 generalArea: "Northern Coast Range",
+                picture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/e8/30/7e/castle-crags-state-park.jpg?w=1200&h=-1&s=1",
                 activities: {connect: {
                     id: hike.id,
                     id: cave.id
@@ -173,6 +177,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.parks.ca.gov/?page_id=507",
                 generalArea: "Central Sierras",
+                picture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/58/b4/76/mining-equipment-near.jpg?w=1200&h=-1&s=1",
                 activities: {connect: {
                     id: hike.id,
                 }}
@@ -189,6 +194,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.parks.ca.gov/?page_id=510",
                 generalArea: "Tahoe",
+                picture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/5e/29/c7/sugar-pine-state-park.jpg?w=1100&h=-1&s=1",
                 activities: {connect: {
                     id: hike.id,
                     id: swim.id,
@@ -207,6 +213,7 @@ async function seed() {
                 reserveFrame: 6,
                 website: "https://www.fs.usda.gov/recarea/ltbmu/recarea/?recid=11781",
                 generalArea: "Tahoe",
+                picture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/7a/3c/2a/20180620-135448-largejpg.jpg?w=1000&h=-1&s=1",
                 activities: {connect: {
                     id: hike.id,
                     id: swim.id,
@@ -225,6 +232,7 @@ async function seed() {
                 reserveFrame: 5,
                 website: "https://www.recreation.gov/camping/campgrounds/232263?tab=info",
                 generalArea: "Central Sierras",
+                picture: "https://cdn.recreation.gov/public/images/64980.jpg",
                 activities: {connect: {
                     id: hike.id,
                 }}
@@ -241,6 +249,7 @@ async function seed() {
                 reserveFrame: 5,
                 website: "https://www.nps.gov/yose/planyourvisit/camping.htm",
                 generalArea: "Central Sierras",
+                picture: "https://cdn.recreation.gov/public/2021/04/14/00/55/2991_b79e9355-d662-4380-b51c-9c3f8b81ec24_700.jpeg",
                 activities: {connect: {
                     id: hike.id,
                 }}
@@ -256,7 +265,8 @@ async function seed() {
                 curvy: "no",
                 reserveFrame: 6,
                 website: "https://koa.com/campgrounds/mt-lassen/",
-                generalArea: "Northern Sierras"
+                generalArea: "Northern Sierras",
+                picture: "https://koa.com/content/campgrounds/mt-lassen/photos/a2f84e91-701f-4d96-a6dd-c6daeca0946dphotoc1a84737-3e09-4b73-b482-b7afd7400ecc.JPG.axd?preset=campgroundphoto"
             }
         })       
         //-------------------------TRIP/BUDGET--------------------------->

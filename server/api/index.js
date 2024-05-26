@@ -201,7 +201,7 @@ apiRouter.post("/activity", requireUser, async (req, res, next) => {
         const newActivity = await prisma.activities.create({
             data: {
                 name
-            } //connect campground in a patch?
+            } //connect campground in a patch? - checkboxes on post form?
         })
         res.status(201).send(newActivity);
     } catch (error) {
@@ -223,7 +223,7 @@ apiRouter.patch("/trip/:id/edit", requireUser, async (req, res, next) => {
                 gasSingle: gasSingle || undefined,
                 fireNight: fireNight || undefined,
                 parking: parking || undefined
-            } //how to remove meals?
+            } //how to remove meals? - checkboxes on edit form?
         })
         if (!updatedTrip) {
             res.status(404).send({message: "Trip not found"});
