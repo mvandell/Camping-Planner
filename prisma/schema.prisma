@@ -77,7 +77,7 @@ model Campgrounds {
     reserveFrame Int
     website String
     generalArea String
-    picture String?
+    picture String
     trips Trip[]
     activities Activities[]
 }

@@ -173,7 +173,7 @@ authRouter.post("/equipment", [requireUser, requireAdmin], async (req, res, next
 //POST auth/campground
 authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, next) => {
     try {
-        const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea} = req.body;
+        const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea, picture} = req.body;
         const newCampground = await prisma.campgrounds.create({
             data: {
                 park, 
@@ -183,7 +183,8 @@ authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, nex
                 curvy, 
                 reserveFrame, 
                 website, 
-                generalArea
+                generalArea,
+                picture
             } //connect activities in a patch? - checkboxes on post form?
         });
         res.status(201).send(newCampground)
@@ -232,7 +233,8 @@ authRouter.patch("/campground/:id/edit", [requireUser, requireAdmin], async (req
                 curvy: curvy || undefined, 
                 reserveFrame: reserveFrame || undefined, 
                 website: website || undefined, 
-                generalArea: generalArea || undefined
+                generalArea: generalArea || undefined,
+                picture: picture || undefined
             } //how to remove activity? - checkboxes?
         });
         if (!updatedCampground) {

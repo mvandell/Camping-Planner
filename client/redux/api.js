@@ -412,10 +412,10 @@ const api = createApi({
         }),
         //PATCH CAMPGROUND
         patchCampground: builder.mutation({
-            query: ({id, park, price, firewood, distance, curvy, reserveFrame, website, generalArea}) => ({
+            query: ({id, park, price, firewood, distance, curvy, reserveFrame, website, generalArea, picture}) => ({
                 url: `/auth/campground/${id}/edit`,
                 method: "PATCH",
-                body: {park, price, firewood, distance, curvy, reserveFrame, website, generalArea},
+                body: {park, price, firewood, distance, curvy, reserveFrame, website, generalArea, picture},
             }),
             invalidatesTags: ["Campgrounds"]
         }),
