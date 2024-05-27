@@ -37,7 +37,8 @@ foodRouter.get("/meal/:id", requireUser, async (req, res, next) => {
         const meal = await prisma.meals.findUnique({
             where: {
                 id: Number(req.params.id)
-            }
+            },
+            include: {foods: true}
         });
         res.send(meal);
     } catch (error) {
@@ -115,17 +116,18 @@ foodRouter.post("/meal", requireUser, async (req, res, next) => {
     }
 });
 //<--------------------------POST NEW FOOD------------------------>
-//POST api/food/food
-foodRouter.post("/food", requireUser, async (req, res, next) => {
+//POST api/food/food/:meal
+foodRouter.post("/food/:meal", requireUser, async (req, res, next) => {
     try {
         const {name, cooler, userId} = req.body;
         const newFood = await prisma.food.create({
             data: {
                 name,
                 cooler,
-                user: {connect: {id: userId}}
+                user: {connect: {id: userId}},
+                meals: {connect: {id: Number(req.params.meal)}}
             },
-            include: {user: true}
+            include: {user: true, meals: true}
         });
         res.status(201).send(newFood);
     } catch (error) {
@@ -144,6 +146,28 @@ foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
                 course: course || undefined,
                 name: name || undefined
             } //how to remove food? - checkboxes on edit form?
+        })
+        if (!updatedMeal) {
+            res.status(404).send({message: "Meal not found"});
+        } else {
+            res.send(updatedMeal);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//PATCH api/food/meal/:food/remove
+foodRouter.patch("/meal/:id/:food/remove", requireUser, async (req, res, next) => {
+    try {
+        //const {foods} = req.body;
+        const updatedMeal = await prisma.meals.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                foods: {
+                    disconnect: [{id: Number(req.params.food)}],
+                },
+            },
+            include: {foods: true}
         })
         if (!updatedMeal) {
             res.status(404).send({message: "Meal not found"});
