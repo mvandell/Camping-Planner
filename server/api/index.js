@@ -211,7 +211,7 @@ apiRouter.patch("/trip/:id/edit", requireUser, async (req, res, next) => {
                 gasSingle: gasSingle || undefined,
                 fireNight: fireNight || undefined,
                 parking: parking || undefined
-            } //how to remove meals? - checkboxes on edit form?
+            } 
         })
         if (!updatedTrip) {
             res.status(404).send({message: "Trip not found"});

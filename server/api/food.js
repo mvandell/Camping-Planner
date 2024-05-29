@@ -156,7 +156,7 @@ foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
         next(error);
     }
 });
-//PATCH api/food/meal/:food/remove
+//PATCH api/food/meal/:id/:food/remove
 foodRouter.patch("/meal/:id/:food/remove", requireUser, async (req, res, next) => {
     try {
         const updatedMeal = await prisma.meals.update({

@@ -86,7 +86,7 @@ const api = createApi({
                 url: `/auth/campground/${id}`,
                 method: "GET",
             }),
-            providesTags: ["Campgrounds"]
+            providesTags: ["Campgrounds", "Activities"]
         }),
         //<---------------------------GET BY TRIP--------------------------->
         //GET BUDGETS BY TRIP
@@ -153,7 +153,7 @@ const api = createApi({
                 url: `/api/trip/${id}`,
                 method: "GET",
             }),
-            providesTags: ["Trips"]
+            providesTags: ["Trips", "Meals"]
         }),
         //GET SINGLE MEAL
         getSingleMeal: builder.query({
@@ -161,7 +161,7 @@ const api = createApi({
                 url: `/api/food/meal/${id}`,
                 method: "GET",
             }),
-            providesTags: ["Meals"]
+            providesTags: ["Meals", "Food"]
         }),
         //<---------------------------POST--------------------------->
         //POST TRIP
@@ -171,7 +171,7 @@ const api = createApi({
                 method: "POST",
                 body: trip,
             }),
-            invalidatesTags: ["Trips"]
+            invalidatesTags: ["Trips", "Campgrounds"]
         }),
         //POST BUDGET
         postBudget: builder.mutation({
@@ -180,7 +180,7 @@ const api = createApi({
                 method: "POST",
                 body: budget,
             }),
-            invalidatesTags: ["Budgets"]
+            invalidatesTags: ["Budgets", "Trips"]
         }),
         //POST MEAL
         postMeal: builder.mutation({
@@ -198,7 +198,7 @@ const api = createApi({
                 method: "POST",
                 body: food,
             }),
-            invalidatesTags: ["Food"]
+            invalidatesTags: ["Food", "Users"]
         }),
         //POST CLOTHING
         postClothing: builder.mutation({
@@ -207,7 +207,7 @@ const api = createApi({
                 method: "POST",
                 body: clothing,
             }),
-            invalidatesTags: ["Clothing"]
+            invalidatesTags: ["Clothing", "Users"]
         }),
         //POST ACTIVITY
         postActivity: builder.mutation({
@@ -235,7 +235,23 @@ const api = createApi({
                 method: "PATCH",
                 body: {startDate, endDate, gasTotal, gasSingle, fireNight, parking},
             }),
-            invalidatesTags: ["Trips"]
+            invalidatesTags: ["Trips", "Campgrounds"]
+        }),
+        //PATCH ADD MEAL TO TRIP
+        patchTripMealAdd: builder.mutation({
+            query: ({id, meal}) => ({
+                url: `api/trip/${id}/${meal}/add`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Trips", "Meals"]
+        }),
+        //PATCH REMOVE MEAL FROM TRIP
+        patchTripMealRemove: builder.mutation({
+            query: ({id, meal}) => ({
+                url: `api/trip/${id}/${meal}/remove`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Trips", "Meals"]
         }),
         //PATCH BUDGET
         patchBudget: builder.mutation({
@@ -254,6 +270,14 @@ const api = createApi({
                 body: {day, course, name},
             }),
             invalidatesTags: ["Meals"]
+        }),
+        //PATCH REMOVE FOOD FROM MEAL
+        patchMealFoodRemove: builder.mutation({
+            query: ({id, food}) => ({
+                url: `api/food/meal/${id}/${food}/remove`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Meals", "Food"]
         }),
         //PATCH FOOD
         patchFood: builder.mutation({
@@ -418,6 +442,22 @@ const api = createApi({
                 body: {park, price, firewood, distance, curvy, reserveFrame, website, generalArea, picture},
             }),
             invalidatesTags: ["Campgrounds"]
+        }),
+        //PATCH ADD ACTITITY TO CAMPGROUND
+        patchCampgroundActivityAdd: builder.mutation({
+            query: ({id, activity}) => ({
+                url: `/acuth/campground/${id}/${activity}/add`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Campgrounds", "Activities"]
+        }),
+        //PATCH REMOVE ACTIVITY FROM CAMPGROUND
+        patchCampgroundActivityRemove: builder.mutation({
+            query: ({id, activity}) => ({
+                url: `/acuth/campground/${id}/${activity}/remove`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Campgrounds", "Activities"]
         }),
         //PATCH EQUIPMENT
         patchEquipment: builder.mutation({
