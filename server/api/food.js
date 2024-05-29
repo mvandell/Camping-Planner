@@ -145,7 +145,7 @@ foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
                 day: day || undefined,
                 course: course || undefined,
                 name: name || undefined
-            } //how to remove food? - checkboxes on edit form?
+            }
         })
         if (!updatedMeal) {
             res.status(404).send({message: "Meal not found"});
@@ -159,7 +159,6 @@ foodRouter.patch("/meal/:id/edit", requireUser, async (req, res, next) => {
 //PATCH api/food/meal/:food/remove
 foodRouter.patch("/meal/:id/:food/remove", requireUser, async (req, res, next) => {
     try {
-        //const {foods} = req.body;
         const updatedMeal = await prisma.meals.update({
             where: {id: Number(req.params.id)},
             data: {

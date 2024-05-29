@@ -58,7 +58,8 @@ authRouter.get("/campground/:id", async (req, res, next) => {
         const campground = await prisma.campgrounds.findUnique({
             where: {
                 id: Number(req.params.id)
-            }
+            },
+            include: {activities: true}
         });
         res.send(campground);
     } catch (error) {
@@ -174,6 +175,7 @@ authRouter.post("/equipment", [requireUser, requireAdmin], async (req, res, next
 authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const {park, price, firewood, distance, curvy, reserveFrame, website, generalArea, picture} = req.body;
+        console.log(id)
         const newCampground = await prisma.campgrounds.create({
             data: {
                 park, 
@@ -185,7 +187,7 @@ authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, nex
                 website, 
                 generalArea,
                 picture
-            } //connect activities in a patch? - checkboxes on post form?
+            }, //connect activities in a patch? - checkboxes on post form?
         });
         res.status(201).send(newCampground)
     } catch (error) {
@@ -235,8 +237,50 @@ authRouter.patch("/campground/:id/edit", [requireUser, requireAdmin], async (req
                 website: website || undefined, 
                 generalArea: generalArea || undefined,
                 picture: picture || undefined
-            } //how to remove activity? - checkboxes?
+            }
         });
+        if (!updatedCampground) {
+            res.status(404).send({message: "Campground not found"});
+        } else {
+            res.send(updatedCampground);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//PATCH auth/campground/:id/:activity/add
+authRouter.patch("/campground/:id/:activity/add", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const updatedCampground = await prisma.campgrounds.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                activities: {
+                    connect: {id: Number(req.params.activity)},
+                },
+            },
+            include: {activities: true}
+        });
+        if (!updatedCampground) {
+            res.status(404).send({message: "Campground not found"});
+        } else {
+            res.send(updatedCampground);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//PATCH auth/campground/:id/:activity/remove
+authRouter.patch("/campground/:id/:activity/remove", [requireUser, requireAdmin], async (req, res, next) => {
+    try {
+        const updatedCampground = await prisma.campgrounds.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                activities: {
+                    disconnect: [{id: Number(req.params.activity)}],
+                },
+            },
+            include: {activities: true}
+        })
         if (!updatedCampground) {
             res.status(404).send({message: "Campground not found"});
         } else {
