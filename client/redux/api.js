@@ -408,14 +408,6 @@ const api = createApi({
             invalidatesTags: ["Activities"]
         }),
         //<---------------------------ADMIN--------------------------->
-        //GET ALL USERS
-        getAllUsers: builder.query({
-            query: () => ({
-                url: `/auth/users`,
-                method: 'GET',
-            }),
-            providesTags: ["Users"]
-        }),
         //POST CAMPGROUND
         postCampground: builder.mutation({
             query: (campground) => ({
