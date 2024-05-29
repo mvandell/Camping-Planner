@@ -24,7 +24,8 @@ apiRouter.get("/trip/:id", requireUser, async (req, res, next) => {
         const trip = await prisma.trip.findUnique({
             where: {
                 id: Number(req.params.id)
-            }
+            },
+            include: {meals: true}
         });
         res.send(trip)
     } catch (error) {
@@ -188,7 +189,7 @@ apiRouter.post("/activity", requireUser, async (req, res, next) => {
         const newActivity = await prisma.activities.create({
             data: {
                 name
-            } //connect campground in a patch? - checkboxes on post form?
+            }
         })
         res.status(201).send(newActivity);
     } catch (error) {
@@ -211,6 +212,48 @@ apiRouter.patch("/trip/:id/edit", requireUser, async (req, res, next) => {
                 fireNight: fireNight || undefined,
                 parking: parking || undefined
             } //how to remove meals? - checkboxes on edit form?
+        })
+        if (!updatedTrip) {
+            res.status(404).send({message: "Trip not found"});
+        } else {
+            res.send(updatedTrip);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//PATCH api/trip/:id/:meal/add
+authRouter.patch("/trip/:id/:meal/add", requireUser, async (req, res, next) => {
+    try {
+        const updatedTrip = await prisma.trip.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                meals: {
+                    connect: {id: Number(req.params.meal)},
+                },
+            },
+            include: {meals: true}
+        });
+        if (!updatedTrip) {
+            res.status(404).send({message: "Trip not found"});
+        } else {
+            res.send(updatedTrip);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//PATCH api/trip/:id/:meal/remove
+authRouter.patch("/trip/:id/:meal/remove", requireUser, async (req, res, next) => {
+    try {
+        const updatedTrip = await prisma.trip.update({
+            where: {id: Number(req.params.id)},
+            data: {
+                meals: {
+                    disconnect: [{id: Number(req.params.meal)}],
+                },
+            },
+            include: {meals: true}
         })
         if (!updatedTrip) {
             res.status(404).send({message: "Trip not found"});

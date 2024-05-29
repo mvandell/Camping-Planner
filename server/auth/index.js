@@ -187,7 +187,7 @@ authRouter.post("/campground", [requireUser, requireAdmin], async (req, res, nex
                 website, 
                 generalArea,
                 picture
-            }, //connect activities in a patch? - checkboxes on post form?
+            },
         });
         res.status(201).send(newCampground)
     } catch (error) {
