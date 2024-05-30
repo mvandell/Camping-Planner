@@ -38,6 +38,13 @@ const api = createApi({
             }),
             invalidatesTags: ["Me"]
         }),
+        //GET ALL USERS FOR VALIDATION
+        getAllUsersValidation: builder.query({
+            query: () => ({
+                url: `/auth/users/validate`,
+                method: 'GET',
+            }),
+        }),
         //<---------------------------GET USER INFO--------------------------->
         //GET USER
         getUser: builder.query({
@@ -496,6 +503,7 @@ export const {
     //AUTHORIZATION
     useLoginMutation,
     useLogoutMutation,
+    useGetAllUsersValidationQuery,
     //GET USER INFO
     useGetUserQuery,
     useGetUserFoodQuery,

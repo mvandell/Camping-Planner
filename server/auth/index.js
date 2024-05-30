@@ -12,6 +12,21 @@ const {JWT_SECRET} = process.env;
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
 
+//<--------------------------------GET ALL USERS FOR VALIDATING-------------------------------->
+//GET /auth/users/validate
+authRouter.get("/users/validate", async (req, res, next) => {
+    try {
+        const user = prisma.user
+        const users = await user.findMany({
+            select: {username: true}
+        });
+
+        delete user.password
+        res.send(users);
+    } catch (error) {
+        next(error);
+    }
+});
 //<--------------------------GET ACCOUNT------------------------>
 //GET /auth/account
 authRouter.get("/account", requireUser, async (req, res, next) => {
