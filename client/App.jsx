@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NavBar from "./components/NavBar/NavBar";
+import EquipmentPage from "./components/EquipmentPage/EquipmentPage";
 
 const App = () => {
   const token = useSelector((state) => state.auth.token);
@@ -12,7 +13,7 @@ const App = () => {
       <NavBar />
       
       <Routes>
-
+        <Route path="/" element={<EquipmentPage />} />
       </Routes>
     </div>
   )

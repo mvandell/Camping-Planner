@@ -223,7 +223,7 @@ apiRouter.patch("/trip/:id/edit", requireUser, async (req, res, next) => {
     }
 });
 //PATCH api/trip/:id/:meal/add
-authRouter.patch("/trip/:id/:meal/add", requireUser, async (req, res, next) => {
+apiRouter.patch("/trip/:id/:meal/add", requireUser, async (req, res, next) => {
     try {
         const updatedTrip = await prisma.trip.update({
             where: {id: Number(req.params.id)},
@@ -244,7 +244,7 @@ authRouter.patch("/trip/:id/:meal/add", requireUser, async (req, res, next) => {
     }
 });
 //PATCH api/trip/:id/:meal/remove
-authRouter.patch("/trip/:id/:meal/remove", requireUser, async (req, res, next) => {
+apiRouter.patch("/trip/:id/:meal/remove", requireUser, async (req, res, next) => {
     try {
         const updatedTrip = await prisma.trip.update({
             where: {id: Number(req.params.id)},

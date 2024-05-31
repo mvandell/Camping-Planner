@@ -28,9 +28,17 @@ app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
 // app.get('*', (req, res, next) => {
-//     res.sendFile(path.join(__dirname, '../dist/index.html'));
+//     res.sendFile(path.join(__dirname, '../index.html'));
 // })
 
+// app.get("/", (req, res, next) => {
+//     try {
+//       res.send("../index.html");
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
+  
 // Error handling middleware
 app.use((error, req, res, next) => {
     console.error('SERVER ERROR: ', error);
