@@ -9,17 +9,20 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
-import { useGetAllEquipmentQuery, useDeleteEquipmentMutation } from "../../redux/api";
+import { useGetAllEquipmentQuery, useDeleteEquipmentMutation, usePostEquipmentMutation } from "../../redux/api";
 import { usePatchEquipmentMutation, usePatchEquipmentPackToggleMutation, usePatchEquipmentNeedToggleMutation } from "../../redux/api";
 
 const EquipmentPage = () => {
     const token = useSelector((state) => state.auth.token)
+
+    const [name, setName] = useState("");
 
     const { data, error, isLoading } = useGetAllEquipmentQuery();
     const [deleteEquipment] = useDeleteEquipmentMutation();
     //const [patchEquipment] = usePatchEquipmentMutation();
     const [packToggle] = usePatchEquipmentPackToggleMutation();
     //const [needToggle] = usePatchEquipmentNeedToggleMutation();
+    const [postEquipment] = usePostEquipmentMutation();
 
     console.log(token)
 
@@ -51,7 +54,7 @@ const EquipmentPage = () => {
                                     console.log(response);
                             }}/>
                             <Typography>Packed</Typography>
-                        </> //how to tell if admin? useSelector?
+                        </> //how to tell if admin? useSelector? new GET admin query?
                         }
                     </Stack>
                 </Card>
