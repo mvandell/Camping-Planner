@@ -168,7 +168,7 @@ const api = createApi({
                 url: `/api/food/meal/${id}`,
                 method: "GET",
             }),
-            providesTags: ["Meals", "Food"]
+            providesTags: ["Meals", "Food", "Users"]
         }),
         //<---------------------------POST--------------------------->
         //POST TRIP

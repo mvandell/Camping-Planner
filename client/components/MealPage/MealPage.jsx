@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 import { useGetSingleMealQuery, useDeleteFoodMutation, usePostFoodMutation } from "../../redux/api";
-import { usePatchMealMutation, usePatchMealFoodRemoveMutation } from "../../redux/api";
+import { usePatchMealMutation, usePatchMealFoodRemoveMutation, usePatchFoodPurchaseToggleMutation } from "../../redux/api";
 import { usePatchFoodMutation, usePatchFoodCoolerToggleMutation } from "../../redux/api";
 
 const MealPage = () => {
@@ -18,12 +18,13 @@ const MealPage = () => {
     const [userId, setUserId] = useState(null);
 
     const {data, error, isLoading} = useGetSingleMealQuery();
-    const [deleteFood] = useDeleteFoodMutation();
+    //const [deleteFood] = useDeleteFoodMutation();
     const [postFood] = usePostFoodMutation();
     const [patchMeal] = usePatchMealMutation();
     const [removeFood] = usePatchMealFoodRemoveMutation();
     const [patchFood] = usePatchFoodMutation();
     const [coolerToggle] = usePatchFoodCoolerToggleMutation();
+    const [purchaseToggle] = usePatchFoodPurchaseToggleMutation();
 
     if (isLoading) {
         return <div> </div>;
@@ -60,7 +61,7 @@ const MealPage = () => {
                         defaultChecked={ingredient.cooler}
                         onChange={async () => {
                             console.log("toggle cooler");
-                            const response = await packToggle({id: ingredient.id, cooler: !cooler});
+                            const response = await coolerToggle({id: ingredient.id, cooler: !cooler});
                             console.log("cooler", response);
                             }}/>
                         <Typography>Cooler</Typography>
@@ -68,7 +69,7 @@ const MealPage = () => {
                                 defaultChecked={ingredient.purchased}
                                 onChange={async () => {
                                     console.log("toggle purchased");
-                                    const response = await packToggle({id: ingredient.id, purchased: !purchased});
+                                    const response = await purchaseToggle({id: ingredient.id, purchased: !purchased});
                                     console.log("purchased", response);
                             }}/>
                             <Typography>Purchased</Typography>
