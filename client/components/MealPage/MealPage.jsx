@@ -14,7 +14,72 @@ import { usePatchMealMutation, usePatchMealFoodRemoveMutation } from "../../redu
 import { usePatchFoodMutation, usePatchFoodCoolerToggleMutation } from "../../redux/api";
 
 const MealPage = () => {
+    const [name, setName] = useState("");
+    const [userId, setUserId] = useState(null);
 
+    const {data, error, isLoading} = useGetSingleMealQuery();
+    const [deleteFood] = useDeleteFoodMutation();
+    const [postFood] = usePostFoodMutation();
+    const [patchMeal] = usePatchMealMutation();
+    const [removeFood] = usePatchMealFoodRemoveMutation();
+    const [patchFood] = usePatchFoodMutation();
+    const [coolerToggle] = usePatchFoodCoolerToggleMutation();
+
+    if (isLoading) {
+        return <div> </div>;
+    }
+    if (error) {
+        return <div>Error:{error.message}</div>;
+    }
+
+    return (
+        <div>
+            <Stack direction="row">
+                <Typography>
+                    {data.name}
+                </Typography>
+                <Typography>
+                    {data.course}
+                </Typography>
+                {data.day &&
+                    <Typography>
+                        Day: {data.day}
+                    </Typography>
+                }
+            </Stack>
+            <Typography>
+                Ingredients:
+            </Typography>
+            {data.foods && data.foods.map((ingredient) => (
+                <Card key={ingredient.id} sx={{ p: 1, m: 1 }}>
+                    <Stack direction="row">
+                        <Typography>
+                            {ingredient.name}
+                        </Typography>
+                        <Checkbox 
+                        defaultChecked={ingredient.cooler}
+                        onChange={async () => {
+                            console.log("toggle cooler");
+                            const response = await packToggle({id: ingredient.id, cooler: !cooler});
+                            console.log("cooler", response);
+                            }}/>
+                        <Typography>Cooler</Typography>
+                        <Checkbox 
+                                defaultChecked={ingredient.purchased}
+                                onChange={async () => {
+                                    console.log("toggle purchased");
+                                    const response = await packToggle({id: ingredient.id, purchased: !purchased});
+                                    console.log("purchased", response);
+                            }}/>
+                            <Typography>Purchased</Typography>
+                    </Stack>
+                    <Typography>
+                        {ingredient.user.username}
+                    </Typography>
+                </Card>
+            ))}
+        </div>
+    )
 }
 
 export default MealPage

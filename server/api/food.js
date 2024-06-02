@@ -38,7 +38,7 @@ foodRouter.get("/meal/:id", requireUser, async (req, res, next) => {
             where: {
                 id: Number(req.params.id)
             },
-            include: {foods: true}
+            include: {foods: {include: {user: {select: {username: true}}}}}
         });
         res.send(meal);
     } catch (error) {
