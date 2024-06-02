@@ -2,7 +2,6 @@ import Card from "@mui/material/Card";
 import Typography from '@mui/material/Typography';
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid"
 import Alert from "@mui/material/Alert";
 import Checkbox from '@mui/material/Checkbox';
 
@@ -22,7 +21,7 @@ const MealPage = () => {
     const [postFood] = usePostFoodMutation();
     const [patchMeal] = usePatchMealMutation();
     const [removeFood] = usePatchMealFoodRemoveMutation();
-    const [patchFood] = usePatchFoodMutation();
+    //const [patchFood] = usePatchFoodMutation();
     const [coolerToggle] = usePatchFoodCoolerToggleMutation();
     const [purchaseToggle] = usePatchFoodPurchaseToggleMutation();
 
