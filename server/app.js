@@ -25,17 +25,17 @@ app.use("/api/food", require("./api/food.js"))
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
-// app.get('*', (req, res, next) => {
-//     res.sendFile(path.join(__dirname, '../index.html'));
-// })
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname,'../index.html'));
+})
 
-// app.get("/", (req, res, next) => {
-//     try {
-//       res.send("../index.html");
-//     } catch (error) {
-//       next(error);
-//     }
-//   });
+app.get("/", (req, res, next) => {
+    try {
+      res.send("../index.html");
+    } catch (error) {
+      next(error);
+    }
+  });
   
 // Error handling middleware
 app.use((error, req, res, next) => {
