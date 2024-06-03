@@ -25,17 +25,27 @@ app.use("/api/food", require("./api/food.js"))
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
+app.use((req, res, next) => {
+  if (req.url.endsWith('.jsx')) {
+    res.type('application/javascript');
+  }
+  next();
+});
+app.use(express.static(path.join(__dirname, '..', '/public')))
+
 app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname,'../index.html'));
+    res.sendFile(path.join(__dirname,'../public/index.html'));
 })
 
-app.get("/", (req, res, next) => {
-    try {
-      res.send("../index.html");
-    } catch (error) {
-      next(error);
-    }
-  });
+
+
+// app.get("/", (req, res, next) => {
+//     try {
+//       res.send("../index.html");
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
   
 // Error handling middleware
 app.use((error, req, res, next) => {
