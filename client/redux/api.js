@@ -52,23 +52,7 @@ const api = createApi({
                 url: `/auth/account`,
                 method: 'GET',
             }),
-            providesTags: ["Me"]
-        }),
-        //GET FOOD BY USER
-        getUserFood: builder.query({
-            query: (user) => ({
-                url: `/api/food/food/${user}`,
-                method: "GET",
-            }),
-            providesTags: ["Food"]
-        }),
-        //GET CLOTHING BY USER
-        getUserClothing: builder.query({
-            query: (user) => ({
-                url: `/api/clothing/${user}`,
-                method: "GET",
-            }),
-            providesTags: ["Clothing"]
+            providesTags: ["Me", "Food", "Clothing"]
         }),
         //<---------------------------GUEST--------------------------->
         //GET ALL EQUIPMENT
@@ -506,8 +490,6 @@ export const {
     useGetAllUsersValidationQuery,
     //GET USER INFO
     useGetUserQuery,
-    useGetUserFoodQuery,
-    useGetUserClothingQuery,
     //GUEST
     useGetAllEquipmentQuery,
     useGetAllCampgroundsQuery,

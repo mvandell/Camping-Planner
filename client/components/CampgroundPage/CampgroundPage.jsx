@@ -24,7 +24,7 @@ const CampgroundPage = () => {
     }
 
     return (
-        <div>
+        <div> 
             <Typography variant="h1">
                 <a href={data.website} target="_blank">{data.park}</a>
             </Typography>
@@ -72,7 +72,7 @@ const CampgroundPage = () => {
                         {data.activities && data.activities.map((activity) => (
                             <Card key={activity.id} sx={{ p: 1, m: 1 }}>
                                 <Typography>{activity.name}</Typography>
-                            </Card>
+                            </Card> //how to tell if admin? useSelector? new GET admin query?
                         ))}
                     </Card>
                     <Card>
