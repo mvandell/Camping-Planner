@@ -10,13 +10,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useGetUserQuery, usePatchFoodCoolerToggleMutation, usePatchFoodPurchaseToggleMutation } from "../../redux/api";
-import { usePatchClothingPackToggleMutation } from "../../redux/api";
+import { usePatchClothingPackToggleMutation, usePatchClothingMutation } from "../../redux/api";
 
 const AccountPage = () => {
     const [data, error, isLoading] = useGetUserQuery();
     const [coolerToggle] = usePatchFoodCoolerToggleMutation();
     const [purchaseToggle] = usePatchFoodPurchaseToggleMutation();
     const [packToggle] = usePatchClothingPackToggleMutation();
+    //const [patchClothing] = usePatchClothingMutation();
 
     if (isLoading) {
         return <div> </div>;
