@@ -15,17 +15,17 @@ const NavBar = () => {
                     Camping Planner
                 </Typography>
                 <Box sx={{borderRadius: 5}}>
-                    <Link>
+                    <Link >
                         <Button>
                             Current Trip
                         </Button>
                     </Link>
-                    <Link>
+                    <Link to="/campgrounds">
                         <Button>
                             Campgrounds
                         </Button>
                     </Link>
-                    <Link>
+                    <Link to="/">
                         <Button>
                             Equipment
                         </Button>
